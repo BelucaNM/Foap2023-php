@@ -72,6 +72,9 @@
 			echo Strtotime ($fecha);
 			echo "<br>";
 
+	// ejercicio 8
+	
+
 			$date1="22/03/2024";
 			echo "La primera fecha es : ".$date1."<br>";
 			$date2="22/07/2023";
@@ -81,12 +84,33 @@
 			if ($time1 > $time2) echo $date1." es la fecha mayor ". "<br>";
 			else echo $date1." es la fecha mayor ". "<br>";
 
+	// ejercicio 9
+	// formato americano a europeo 
+	/* revisar
+	$famericana = "03-22-2024";
+	print("la fecha americana es :".$famericana);
+	echo "<br>";
+	$feuropea= date ("m-d-Y", strtotime($famericana));
+	print("la fecha europea es :".$feuropea);
+	echo "<br>"; +*/
+
+	//cambiar entre formato europeo a americano
+
+	$fecha = "22/03/2024";
+	$fecha_array = explode('/', $fecha);
+	print_r($fecha_array);
+	echo "<br>";
+	$fechaFormateada = $fecha_array[1]."/".$fecha_array[0]."/".$fecha_array[2];
+	print_r($fechaFormateada);
+	
+
+	//cambiar a formato Revisar
+	$fecha = date ("L, j \de F \del y");
+	echo $fecha;
 
 
-		 ?>
 
-
-
+	?>
 	<!-- > <footer></footer> <-->
 	<?php include ("footer.html")?>
 	</body>

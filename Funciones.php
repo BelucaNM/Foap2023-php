@@ -21,21 +21,23 @@
     error_reporting(E_ALL);
     
     function creaArrayAleatorios($numElementos) {
-        $i=0;
-        $final=100;
+      
         $array = array ();
 
         for($i = 0; $i < $numElementos; $i++) {
-            $array [$i] = random_int(1,$final);
+            $array [$i] = random_int(1,100);
         }
         return $array;
         }
 
+
+
     function valorMinimo($array) {
-        $elems = $array;
-        $iminim = 0;
+
+        
+        $iminim = $array[0];
                      
-        foreach ( $elems as $mielemento) { 
+        foreach ( $array as $mielemento) { 
                 
             if( $mielemento < $iminim)  $iminim = $mielemento;   
         
@@ -44,10 +46,10 @@
         }
 
     function valorMaximo($array) {
-        $elems = $array;
-        $imax = 0;
+        
+        $imax = $array[0];
                      
-        foreach ( $elems as $mielemento) { 
+        foreach ( $array as $mielemento) { 
                 
             if( $mielemento > $imax)  $imax = $mielemento;   
         
@@ -60,25 +62,27 @@
             
         }
         
-    /*function sumaArray($array) {
-
-            $elems = $array;
-            for($i = 0; $i < 10; $i++) { $suma = $suma + $elems [$i] }
-        }*/
+    function sumaArray($array) {
+            $suma=0;
+            $count = count($array) - 1;
+            for($i = 0; $i < $count; $i++) $suma = $suma + $array[$i];
+            return $suma;
+        }
              
     
     
-    $elemens = creaArrayAleatorios (1,100);
-    echo '$elemens = '.$iminim.".<br>";
-
+    $elemens = creaArrayAleatorios (20);
+    print_r ($elemens);
+    echo "<br>";
+       
     $iminim = valorMinimo ($elemens);
     echo 'Valor minimo de $elemens = '.$iminim.".<br>";
     
-    $iminim = valorMinimo ($elemens);
-    echo 'Valor minimo de $elemens = '.$iminim.".<br>";
+    $iminim = valorMaximo ($elemens);
+    echo 'Valor maximo de $elemens = '.$iminim.".<br>";
 
-    /*$suma = sumaArray ($elemens);
-    echo 'Suma de $elemens = '.$iminim.".<br>";*/
+    $suma = sumaArray ($elemens);
+    echo 'Suma de $elemens = '.$suma.".<br>";
     
       
         

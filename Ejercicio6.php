@@ -22,13 +22,15 @@
         
       
     	$elString = "Buenos dias";
-        echo $elString."\n";
+        echo $elString."<br></br>";
 			
 		$elArray = str_split ($elString);
-        print_r ($elArray)."\n";
+        print_r ($elArray);
+		echo "<br></br>";
 
         $laFrecuenciaEnArray = array_count_values($elArray);
-        print_r ( $laFrecuenciaEnArray)."\n";
+        print_r ( $laFrecuenciaEnArray)."";
+		echo "<br></br>";
 		
         $i= 0;
         $imaxim = 0;
@@ -43,8 +45,8 @@
         }
 
 
-        echo " La letra más repetida es : ".$Lmaxim."\n";
-		echo " La letra menor repetida es : ".$Lminim."\n";	
+        echo " La letra más repetida es : ".$Lmaxim."<br></br>";;
+		echo " La letra menor repetida es : ".$Lminim."<br></br>";	
 			
 		?>
 

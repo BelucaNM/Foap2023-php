@@ -53,19 +53,33 @@
 			echo 'Es miercoles dia '.$dia." de la semana.<br>";
 			break;
 			}
-			/* imprimir tabla de multiplicar */
+			/* imprimir tabla de multiplicar 
 			$linea= array();
-			for($i=1; $i<=9; $i++) 
+			for($i=1; $i<=9; $i++) {
 				for($j=1; $i<=9; $i++)
-					array($i) = $i*$j;
+					{array($i) = $i*$j;
 
 
 				print("<LI>Elemento $i</LI>\n");
-print("</UL>\n");
-			print("<LI>Elemento $i</LI>\n");
-print("</UL>\n");
+				print("</UL>\n");
+				print("<LI>Elemento $i</LI>\n");
+				print("</UL>\n");}
+			}*/
 
+			$fecha= date ("j-n-Y H:i");
+			print("$fecha");
+			echo "<br>";
+			echo Strtotime ($fecha);
+			echo "<br>";
 
+			$date1="22/03/2024";
+			echo "La primera fecha es : ".$date1."<br>";
+			$date2="22/07/2023";
+			echo "La segunda fecha es : ".$date2."<br>";
+			$time1=Strtotime($date1);
+			$time2=Strtotime($date2);
+			if ($time1 > $time2) echo $date1." es la fecha mayor ". "<br>";
+			else echo $date1." es la fecha mayor ". "<br>";
 
 
 

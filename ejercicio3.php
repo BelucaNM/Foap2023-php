@@ -31,28 +31,36 @@
         Entre un número: <input type="integer" name="numero1" value="<?php echo '';?>"><br>
         Entre un número: <input type="integer" name="numero2" value="<?php echo '';?>"><br>
         <input type="submit" name= "suma" value="Suma"> 
+        <input type="submit" name= "producto" value="Producto"> 
+   
         <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
             El indice en el POST es el name <-->
     </form>
     </div>
     <?php
+        $resultado = 0;
         function sumaDeDos($int1,$int2) {
         return $int1 + $int2; 
         }
+        function productoDeDos($int1,$int2) {
+            return $int1 * $int2; 
+            }
         
-        If (isset($_POST["suma"])) {
-        echo "<p style='background-color:blue;'> Entro en rutina de verificacion </p> <br>";
-        print_r($_POST);
+        If (isset($_POST["suma"]) || isset($_POST["producto"]) ) {
+            echo "<p style='background-color:blue;'> Entro en rutina de verificacion </p> <br>";
+            print_r($_POST);
         
-        if (isset ($_POST["numero1"]) & is_numeric($_POST["numero1"]) 
-          & isset($_POST["numero2"]) & is_numeric($_POST["numero2"])) 
-        {
-               $suma = sumaDeDos ( $_POST["numero1"], $_POST["numero2"]);   
-                echo "<p style='color:red;'> El resultado es : ".$suma." </p> ";} 
+            if (    isset ($_POST["numero1"]) & is_numeric($_POST["numero1"]) 
+                    & isset($_POST["numero2"]) & is_numeric($_POST["numero2"])) { 
+                if (isset($_POST["suma"]))       $resultado = sumaDeDos ( $_POST["numero1"], $_POST["numero2"]); 
+                if (isset($_POST["producto"]))   $resultado = productoDeDos ( $_POST["numero1"], $_POST["numero2"]);  
+               
+                echo "<p style='color:red;'> El resultado es : ".$resultado." </p> ";} 
             else 
                 echo "<p style='color:green;'> Por favor , introduzca dos enteros </p> ";
                 
-        unset($_POST["enviar"]);
+            unset($_POST["suma"]);
+            unset($_POST["producto"]);
         }
     ?>
     

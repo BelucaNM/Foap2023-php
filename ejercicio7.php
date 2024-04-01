@@ -1,7 +1,7 @@
 <html>
 
 	<head>
-		<title> Ejercicio 2</title>
+		<title> Ejercicio 7</title>
 		<meta charset="utf-8" >
   		<meta description="Basecon favicon">
   		<link rel="shortcut icon" href="./imagenes/faviconTest.png">
@@ -30,30 +30,39 @@
     <form  method="post">
         Entre un número: <input type="integer" name="numero1" value="<?php echo '';?>"><br>
         Entre un número: <input type="integer" name="numero2" value="<?php echo '';?>"><br>
-        <input type="submit" name= "suma" value="Suma"> 
+        <input type="radio" name= "operacion" value="suma" checked> Suma
+        <input type="radio" name= "operacion" value="producto"> Producto
+        <input type="submit" name ="Enviar" value="Calcula"> 
+   
         <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
             El indice en el POST es el name <-->
     </form>
     </div>
     <?php
+        $resultado = 0;
         function sumaDeDos($int1,$int2) {
         return $int1 + $int2; 
         }
+        function productoDeDos($int1,$int2) {
+            return $int1 * $int2; 
+            }
         
-        If (isset($_POST["suma"])) {
-        echo "<p style='background-color:blue;'> Entro en rutina de verificacion </p> <br>";
-        print_r($_POST);
+        If (isset($_POST["Enviar"])) {
+            echo "<p style='background-color:blue;'> Entro en rutina de verificacion </p> <br>";
+            print_r($_POST);
         
-        if (isset ($_POST["numero1"]) & is_numeric($_POST["numero1"]) 
-          & isset($_POST["numero2"]) & is_numeric($_POST["numero2"])) 
-        {
-               $suma = sumaDeDos ( $_POST["numero1"], $_POST["numero2"]);   
-                echo "<p style='color:red;'> El resultado es : ".$suma." </p> ";} 
+            if (    isset ($_POST["numero1"]) & is_numeric($_POST["numero1"]) 
+                    & isset($_POST["numero2"]) & is_numeric($_POST["numero2"])) { 
+                if ($_POST["operacion"] == "suma")      $resultado = sumaDeDos ( $_POST["numero1"], $_POST["numero2"]); 
+                if ($_POST["operacion"] == "producto")  $resultado = productoDeDos ( $_POST["numero1"], $_POST["numero2"]);  
+                echo "<br><input type=\"number\" id=\"res\" name=\"res\" value=\"$resultado\" /> ";
+                    }
             else 
                 echo "<p style='color:green;'> Por favor , introduzca dos enteros </p> ";
                 
-        unset($_POST["enviar"]);
+           
         }
+        unset($_POST["Enviar"]);
     ?>
     
    <!-- > <footer></footer> <-->

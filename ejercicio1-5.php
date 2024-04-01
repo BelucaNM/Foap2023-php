@@ -35,11 +35,10 @@
     </form>
     </div>
     <?php
-        echo "<p style='background-color:blue;'> Entro en rutina de verificacion con ".$_POST["enviar"]. "</p> ";
-        print_r($_POST);
-        
-        If ($_POST["enviar"]=="Submit")
+        If (isset($_POST["enviar"]))
         {
+        print_r($_POST);
+        echo "<p style='color:blue;'> Entro en rutina de verificacion con ".$_POST["enviar"]."</p> ";
         $laFrase = $_POST["laFrase"];
         if ($laFrase == "") 
         echo "<p style='color:green;'> Por favor , introduzca una frase </p> ";

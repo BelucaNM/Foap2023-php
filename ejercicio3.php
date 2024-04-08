@@ -26,17 +26,7 @@
     
  
     ?>
-    <div id="frase">
-    <form  method="post">
-        Entre un número: <input type="integer" name="numero1" value="<?php echo '';?>"><br>
-        Entre un número: <input type="integer" name="numero2" value="<?php echo '';?>"><br>
-        <input type="submit" name= "suma" value="Suma"> 
-        <input type="submit" name= "producto" value="Producto"> 
-   
-        <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
-            El indice en el POST es el name <-->
-    </form>
-    </div>
+    
     <?php
         $resultado = 0;
         function sumaDeDos($int1,$int2) {
@@ -63,6 +53,17 @@
             unset($_POST["producto"]);
         }
     ?>
+    <div id="frase">
+    <form  method="post">
+        Entre un número: <input type="integer" name="numero1" value="<?php echo '';?>"><br>
+        Entre un número: <input type="integer" name="numero2" value="<?php echo '';?>"><br>
+        <input type="submit" name= "suma" value="Suma"> 
+        <input type="submit" name= "producto" value="Producto"> 
+   
+        <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
+            El indice en el POST es el name <-->
+    </form>
+    </div>
     
    <!-- > <footer></footer> <-->
 	<?php include ("footer.php")?>

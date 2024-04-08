@@ -26,14 +26,7 @@
     
  
     ?>
-    <div id="frase">
-    <form  method="post">
-        Entra una frase: <input type="text" name="laFrase" value="<?php echo '';?>"><br>
-        <input type="submit" name= "enviar" value="Submit"> 
-        <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
-            El indice en el POST es el name <-->
-    </form>
-    </div>
+    
     <?php
         If (isset($_POST["enviar"]))
         {
@@ -70,6 +63,14 @@
             }
         }
     ?>
+    <div id="frase">
+    <form  method="post">
+        Entra una frase: <input type="text" name="laFrase" value="<?php echo '';?>"><br>
+        <input type="submit" name= "enviar" value="Submit"> 
+        <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
+            El indice en el POST es el name <-->
+    </form>
+    </div>
     
    <!-- > <footer></footer> <-->
 	<?php include ("footer.php")?>

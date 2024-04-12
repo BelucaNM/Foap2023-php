@@ -1,33 +1,36 @@
 <HTML>
 <HEAD>
-<TITLE>destinoEjercicio12.php</TITLE>
+    <TITLE>destinoEjercicio12.php</TITLE>
+    <meta charset="utf-8">
+    <meta description="Basecon favicon">
+    <link rel="shortcut icon" href="./imagenes/faviconTest.png">
+    <style>
+    </style>
 </HEAD>
 <BODY>
 <?php
-echo "Variable pagina: $_GET[pagina] <br>";
-
 session_start();
+echo "Variable pagina:". $_GET["pagina"] ."<br>";
 
-if (isset($_SESSION["laSesion"]) && ($_SESSION["laSesion"]=="prueba")) 
-{
-    echo "Sigo en la sesion:". $_SESSION["laSesion"]." <br>";
+if ($_GET["pagina"] == 4) {
+    session_destroy(); 
+    header('Location:loginEjercicio12.php'); }
 
-}
-else
-{
-    echo "La sesión no esta abierta.";
-}
+if (isset($_SESSION["laSesion"]) && ($_SESSION["laSesion"]=="prueba")) {
+    echo "Sigo en la sesion:". $_SESSION['laSesion']."<br>";
+    }else{
+    echo "La sesión no esta abierta.";}
 
 
-$titulo = $texto = $fecha =$nombre = "";
-if (isset($_POST["enviar"]))
-{
-    $_SESSION["titulo"]= $_POST ["titulo"];
-    $_SESSION["texto"]= $_POST ["texto"];
-    $_SESSION["fecha"] = $_POST ["fecha"];
-    $_SESSION["nombre"] = $_POST ["nombre"];
+$titulo = $texto = $fecha = $nombre = "";
 
-    $_SESSION["elResultado"] = "he recogido una noticia" ;
+if (isset($_POST["enviar"])) {
+    $_SESSION["titulo"]= $_POST["titulo"];
+    $_SESSION["texto"]= $_POST["texto"];
+    $_SESSION["fecha"] = $_POST["fecha"];
+    $_SESSION["nombre"] = $_POST["nombre"];
+
+    $_SESSION["elResultado"] = "he recogido una noticia";
     header("Location:homeEjercicio12.php");
 }
 ?>

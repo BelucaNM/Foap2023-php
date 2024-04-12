@@ -29,8 +29,8 @@
     <?php
     // $pwdGuardado = "8a86ac34c87befc560c6b596117c91cd"; //beluca
     // $pwdGuardado = "319f4d26e3c536b5dd871bb2c52e3178";
-    
     //$pwdGuardado= md5('beluca');
+
     $usuarios = array(
         array(
             "nombre" => "beluca",
@@ -53,38 +53,33 @@
         echo "Entro en rutina de verificacion <br> ";
         print_r($_POST);
 
-        if (isset($_POST["user"]) && isset($_POST["pwd"])) {
+        if (empty($_POST["user"]) || empty($_POST["pwd"])) {
+            echo "Introduzca Usuario y Password <br> ";
+        } else {
 
             foreach ($usuarios as $usuario) {
-                if ($usuario["nombre"] == $_POST["user"]) {
-
-                    if ($usuario["password"] == $_POST["pwd"]) {
-                        echo "Todo es correcto ";
-                        session_start();
-                        $_SESSION["laSesion"] = "prueba";
-
-                        header("Location:homeEjercicio12.php");
-                    } else {
-                        echo "Contraseña/User incorrecto <br> ";
-                    }
-
-                } else {
-                    echo "User incorrecto <br> ";
-                }
-            }
-
+            if (($usuario["nombre"] == $_POST["user"]) && ($usuario["password"] == $_POST["pwd"])) 
+            {
+                echo "Todo es correcto ";
+                session_start();
+                $_SESSION["laSesion"] = "prueba";
+                header("Location:homeEjercicio12.php");          
+            } }   
+            
+            echo "Contraseña/User incorrecto <br> ";
             unset($_POST["enviar"]);
-            $user = $_POST['user'];
-            $pwd = $_POST['pwd'];
-
+           
+            if (isset($_POST["user"])) {$user = $_POST['user'];};
+            if (isset($_POST["pwd"]))  {$pwd = $_POST['pwd'];};
+            
+            }
         }
-    }
     ?>
     <div id="login">
         <form method="post">
-            Usuario: <input type="text" name="user" value="<?php echo $user; ?>"><br>
+            Usuario:  <input type="text" name="user" value="<?php echo $user; ?>"><br>
             Password: <input type="text" name="pwd" value="<?php echo $pwd; ?>"><br>
-            <input type="submit" name="enviar" value="Submit">
+            <input type="submit" name="enviar" value="enviar">
             <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
             El indice en el POST es el name <-->
         </form>

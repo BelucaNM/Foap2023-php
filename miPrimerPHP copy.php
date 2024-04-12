@@ -65,13 +65,7 @@ print("</UL>\n");
 			print("<LI>Elemento $i</LI>\n");
 print("</UL>\n");
 
-
-
-
-
-		 ?>
-
-
+	 ?>
 
 	<!-- > <footer></footer> <-->
 	<?php include ("footer.html")?>

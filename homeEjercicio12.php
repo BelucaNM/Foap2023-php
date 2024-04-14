@@ -29,10 +29,10 @@
 
     ?>
     <div id="entradaDatos">
-        <a href="destinoEjercicio12.php?pagina=1">Consultar</a>;
-        <a href="destinoEjercicio12.php?pagina=2">Añadir</a>;
-        <a href="destinoEjercicio12.php?pagina=3">Borrar</a>;
-        <a href="destinoEjercicio12.php?pagina=4">Cerrar</a>;
+        <a href="destinoEjercicio12conValidacion.php?pagina=1">Consultar</a>;
+        <a href="destinoEjercicio12conValidacion.php?pagina=2">Añadir</a>;
+        <a href="destinoEjercicio12conValidacion.php?pagina=3">Borrar</a>;
+        <a href="destinoEjercicio12conValidacion.php?pagina=4">Cerrar</a>;
     </div>
 
     <!-- > <footer></footer> <-->

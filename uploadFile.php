@@ -39,11 +39,20 @@
 
                 $idUnico= time();
                 $nombreFichero= $idUnico. "-" . $_FILES['cv']['name'];
+                $path = $nombreDirectorio.$nombreFichero;
+
                 $result = move_uploaded_file(
                     $_FILES['cv']['tmp_name'], 
-                    $nombreDirectorio. $nombreFichero);
+                    $path);
             // move devuelve true/false ... hay que ver si se ha creado
-                if ($result) {echo " se ha movido el fichero a sus directorio definitivo";}
+                if ($result) {
+                    echo " se ha movido el fichero a sus directorio definitivo";
+                    
+                    // crea un link en la pagina
+                    echo "<h1> Hola " . $nombreFichero." </h1>";
+                    echo "<p> <a href='".$path."' target= '_blank'>Abrir fichero</a></p>"; 
+                    echo "<p> <a href='downloadFile.php?file=".$path."'>Descargar fichero</a></p>";
+                }
                 else {echo "Ha habido un error al subir el fichero al directorio definitivo";}
 
                 }

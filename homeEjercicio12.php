@@ -13,12 +13,11 @@
     <?php
     include ("header.php");
     session_start();
-    if (
-        isset($_SESSION["laSesion"]) &&
-        ($_SESSION["laSesion"] == "prueba") &&
-        isset($_SESSION["elResultado"])
-    ) {
+  
+    if (isset($_SESSION["laSesion"]) && isset($_SESSION["elResultado"])) {
+
         echo "Estoy en la sesion:" . $_SESSION["laSesion"] . "<br>";
+        echo "El resultado es :" . $_SESSION["elResultado"] . "<br>";
         echo "He recibido la siguiente noticia : <br>";
         echo "la noticia: " . $_SESSION["titulo"] . "<br>";
         echo "con el texto " . $_SESSION["texto"] . "<br>";
@@ -30,10 +29,10 @@
 
     ?>
     <div id="entradaDatos">
-        <a href="destinoEjercicio12.php?pagina=1">Consultar</a>;
-        <a href="destinoEjercicio12.php?pagina=2">Añadir</a>;
-        <a href="destinoEjercicio12.php?pagina=3">Borrar</a>
-        <a href="destinoEjercicio12.php?pagina=4">Cerrar</a>
+        <a href="destinoEjercicio12conValidacion.php?pagina=1">Consultar</a>;
+        <a href="destinoEjercicio12conValidacion.php?pagina=2">Añadir</a>;
+        <a href="destinoEjercicio12conValidacion.php?pagina=3">Borrar</a>;
+        <a href="destinoEjercicio12conValidacion.php?pagina=4">Cerrar</a>;
     </div>
 
     <!-- > <footer></footer> <-->

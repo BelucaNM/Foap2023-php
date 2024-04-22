@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-    <TITLE>destinoEjercicio12.php</TITLE>
+    <TITLE>destinoEjercicio12conValidacion.php</TITLE>
     <meta charset="utf-8">
     <meta description="Basecon favicon">
     <link rel="shortcut icon" href="./imagenes/faviconTest.png">
@@ -9,6 +9,8 @@
 </HEAD>
 <BODY>
 <?php
+require('clsValidacion.php');
+
 session_start();
 echo "Variable pagina:". $_GET["pagina"] ."<br>";
 
@@ -25,13 +27,31 @@ if (isset($_SESSION["laSesion"]) && ($_SESSION["laSesion"]=="prueba")) {
 $titulo = $texto = $fecha = $nombre = "";
 
 if (isset($_POST["enviar"])) {
-    $_SESSION["titulo"]= $_POST["titulo"];
-    $_SESSION["texto"]= $_POST["texto"];
-    $_SESSION["fecha"] = $_POST["fecha"];
-    $_SESSION["nombre"] = $_POST["nombre"];
+    
+    //Verificamos el titulo
+    $validacion = new Validacion();
+    $validacion->validaTexto($_POST['titulo'], false, false, true, 'Por favor ingrese un título en forma valida');
+    $validacion->validaTexto($_POST['texto'], false, false, true, 'Por favor ingrese un texto en forma valida');
+    //Validamos la fecha ingresada
+    $validacion->validaFecha($_POST['fecha'], 'La fecha ingresada no es valida');
+    $validacion->validaTexto($_POST['nombre'], false, false, true, 'Por favor ingrese un nombre en forma valida');
+    
+    $errores = $validacion->getEstado();
+    if (!$errores) {
+        echo "No hay errores";
+        $_SESSION["titulo"]= $_POST["titulo"];
+        $_SESSION["texto"]= $_POST["texto"];
+        $_SESSION["fecha"] = $_POST["fecha"];
+        $_SESSION["nombre"] = $_POST["nombre"];
 
-    $_SESSION["elResultado"] = "he recogido una noticia";
-    header("Location:homeEjercicio12.php");
+        $_SESSION["elResultado"] = "he recogido una noticia";
+        header("Location:homeEjercicio12.php");
+    } else {
+        echo "<h1>Listado de errores:</h1>";
+        for ($i = 0; $i < count($errores); $i++) {
+            echo $errores[$i] . "<br>";
+        }
+    }
 }
 ?>
 

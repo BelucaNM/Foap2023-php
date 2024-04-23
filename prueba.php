@@ -1,3 +1,4 @@
+
 <?php
     $arr1 = [1,2,4,5];
     print("ARR1:".in_array(5, $arr1)."<br>");

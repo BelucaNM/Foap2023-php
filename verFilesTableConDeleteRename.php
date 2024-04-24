@@ -30,7 +30,35 @@
 
     if (isset($_GET['op'])&& ($_GET['op']=='delete')){ echo 'Recibo petición de Delete sobre '. $_GET['doc'];}
     if (isset($_GET['op'])&& ($_GET['op']=='rename')){ echo 'Recibo petición de Rename sobre '. $_GET['doc'];}
+  
+   /*
+    if (isset($_GET['op'])&&($_GET['op']=='delete')) {
+        
+            $fileToDelete = $_GET['doc'];
+            
+            if (unlink($fileToDelete)) {
+                echo " arxiu $fileToDelete esborrat! <br>";
+            }
+            else {
+                echo "No s'ha pogut esborrar l'arxiu $fileToDelete!<br>";  
+            }
+       
+        }*/ 
 
+    if (isset($_GET['op'])&& ($_GET['op']=='rename')){
+
+            $theFile = $_GET['doc'];
+            $newName = $_GET['newName'];
+            echo 'op'. $_GET["op"]. 'el file :'. $theFile .'con el nuevo nombre de: '.$newName.'<br>';
+            if (rename($theFile,$newName)) {
+                echo "Renombrado !!";
+            } 
+            else {
+                $error = error_get_last();
+                echo "Error al renombrar archivo: " . $error['message'];
+            }
+        }
+  
 
 
 
@@ -62,6 +90,8 @@
                     $path = $dirRaiz.$nombreDirectorio."\\".$elemento;
                     $size = filesize($path) ;      
                     $lastDate = date("Y-m-d", filemtime($path));
+
+                    $newPath = $dirRaiz.$nombreDirectorio."\\new".$elemento;
 
                     
 
@@ -99,8 +129,8 @@
                             <td><?=$size     ?></td>
                             <td><?=$lastDate ?></td>
                             <td><?=$extension ?></td>
-                            <td><a href='verFilesTable.php?doc=<?=$path?>&op=delete'><span class="icoBasu">&#128465;</span></a></td>
-                            <td><a href='verFilesTable.php?doc=<?=$path?>&op=rename'><span class="icoBoli">&#128394;</span></a></td>
+                            <td><a href='verFilesTableConDeleteRename.php?doc=<?=$path?>&op=delete'><span class="icoBasu">&#128465;</span></a></td>
+                            <td><a href='verFilesTableConDeleteRename.php?doc=<?=$path?>&op=rename&newName=<?=$newPath?>'><span class="icoBoli">&#128394;</span></a></td>
  
             <?php                        
             

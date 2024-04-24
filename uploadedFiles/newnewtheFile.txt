@@ -9,3 +9,10 @@ estándar de las industrias desde el año 1500, cuando un impresor
   con la creación de las hojas "Letraset", las cuales contenian pasajes 
   de Lorem Ipsum, y más recientemente con software de autoedición, 
   como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+""
+"Añadir esta una linea de log"
+2024-04-24 12:44:10Añadir esta linea de log
+logging at 2024-04-24 12:46:55
+logging at 2024-04-24 13:15:50
+logging at 2024-04-24 13:18:40
+logging at 2024-04-24 13:41:30

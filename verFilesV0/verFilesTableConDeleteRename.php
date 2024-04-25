@@ -67,7 +67,7 @@
        print_r ($_POST);
         $nombreDirectorio= $_POST['dir'];
         $dirRaiz = "C:\\xampp\\htdocs\\Foap2023-php\\";
-        $isDirectorio = opendir($dirRaiz.$nombreDirectorio);
+        $isDirectorio = opendir($nombreDirectorio);
 
         if ($isDirectorio) {  // si el directorio existe
             

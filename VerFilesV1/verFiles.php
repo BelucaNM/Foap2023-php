@@ -28,46 +28,14 @@
             
     <?php
 
-    if (isset($_GET['op'])&& ($_GET['op']=='delete')){ echo 'Recibo petición de Delete sobre '. $_GET['doc'];}
-    if (isset($_GET['op'])&& ($_GET['op']=='rename')){ echo 'Recibo petición de Rename sobre '. $_GET['doc'];}
-  
-   /*
-    if (isset($_GET['op'])&&($_GET['op']=='delete')) {
-        
-            $fileToDelete = $_GET['doc'];
-            
-            if (unlink($fileToDelete)) {
-                echo " arxiu $fileToDelete esborrat! <br>";
-            }
-            else {
-                echo "No s'ha pogut esborrar l'arxiu $fileToDelete!<br>";  
-            }
-       
-        }*/ 
-
-    if (isset($_GET['op'])&& ($_GET['op']=='rename')){
-
-            $theFile = $_GET['doc'];
-            $newName = $_GET['newName'];
-            echo 'op'. $_GET["op"]. 'el file :'. $theFile .'con el nuevo nombre de: '.$newName.'<br>';
-            if (rename($theFile,$newName)) {
-                echo "Renombrado !!";
-            } 
-            else {
-                $error = error_get_last();
-                echo "Error al renombrar archivo: " . $error['message'];
-            }
-        }
-  
-
-
-
+ 
+   
     if (isset($_POST['submit']) && ($_POST['dir']!="")){ 
 
    //     print_r ($_POST);
         $nombreDirectorio= $_POST['dir'];
         $dirRaiz = "C:\\xampp\\htdocs\\Foap2023-php\\";
-        $isDirectorio = opendir($nombreDirectorio);
+        $isDirectorio = opendir($dirRaiz.$nombreDirectorio);
 
         if ($isDirectorio) {  // si el directorio existe
             
@@ -129,8 +97,8 @@
                             <td><?=$size     ?></td>
                             <td><?=$lastDate ?></td>
                             <td><?=$extension ?></td>
-                            <td><a href='verFilesTableConDeleteRename.php?doc=<?=$path?>&op=delete'><span class="icoBasu">&#128465;</span></a></td>
-                            <td><a href='verFilesTableConDeleteRename.php?doc=<?=$path?>&op=rename&newName=<?=$newPath?>'><span class="icoBoli">&#128394;</span></a></td>
+                            <td><a href='deleteFile.php?doc=<?=$path?>'><span class="icoBasu">&#128465;</span></a></td>
+                            <td><a href='renameFile.php?doc=<?=$path?>'><span class="icoBoli">&#128394;</span></a></td>
  
             <?php                        
             
@@ -139,7 +107,7 @@
                         
 
                         ?> 
-                            <td><a href='editFile.php?file=<?=$path?>&in=<?="logging at ".date("Y-m-d H:i:s")?>'><span class="icoEscr ">&#128221;</span></a></td> 
+                            <td><a href='editFile.php?file=<?=$path?>'><span class="icoEscr ">&#128221;</span></a></td> 
                             </tr>           
                         <?php
                                     

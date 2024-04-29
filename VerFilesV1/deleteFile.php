@@ -1,16 +1,30 @@
-
+<html>
+<head>
+        <title> deleteFile.php Funcion Delete</title>
+        <meta charset="utf-8" >
+<head>
+<body>
 <?php
+    if (isset($_GET['doc'])){ $theFile = $_GET['doc'];}
 
-    if (isset($_GET['op'])&&($_GET['op']=='delete')) {
+    if (isset($_POST['submit']) && isset($_POST ['name'])) {
         
-            $fileToDelete = $_GET['doc'];
-            
-            if (unlink($fileToDelete)) {
-                echo " arxiu $fileToDelete esborrat! <br>";
+                      
+            if (unlink($theFile)) {
+                echo " file $theFile borrado! <br>";
             }
             else {
-                echo "No s'ha pogut esborrar l'arxiu $fileToDelete!<br>";  
+                $error = error_get_last();
+                echo "Error al borrar el archivo: " . $error['message']; 
             }
+        header ("location:verFiles.php");
        
-        }
+    }
 ?> 
+<form action="" method="post" enctype= "multipart/form-data">
+    <label> Nombre del fichero: </label>
+    <input type = "text" name= "name" readonly maxlength= 60  size= 70 value=<?=$theFile?>> <br>
+    <input type="submit" name="submit" value="Confirme para BORRAR">
+</form>
+            
+</html>

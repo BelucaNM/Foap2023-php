@@ -1,7 +1,7 @@
 <html>
 
     <head>
-        <title> VerFilesTable.php Lee lista de ficheros en un directorio y presenta tabla PHP con links a Deleta y Rename</title>
+        <title> VerFiles.php Lee lista de ficheros en un directorio y presenta tabla PHP con links a Delete y Rename</title>
         <meta charset="utf-8" >
         <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" />
         <style>
@@ -20,12 +20,13 @@
 
    
     <body>
-        <form action="" method="post" enctype= "multipart/form-data">
+    <form action="" method="post" enctype= "multipart/form-data">
         <label> Nombre del Directorio </label>
         <input type="text" name="dir" id="dir">
         <input type="submit" name="submit" VALUE="aceptar">
-        </form>
-            
+    </form>
+         
+           
     <?php
 
  

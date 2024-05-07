@@ -27,9 +27,9 @@
     <div id="entradaDatos">
 
    
-        <a href="destino2.php?pagina=1">Link1</a>;
-        <a href="destino2.php?pagina=2">Link2</a>;
-        <a href="destino2.php?pagina=3">Link3</a>
+        <a href="ejercicio9destino2.php?pagina=1">Link1</a>;
+        <a href="ejercicio9destino2.php?pagina=2">Link2</a>;
+        <a href="ejercicio9destino2.php?pagina=3">Link3</a>
         
         
     </div>

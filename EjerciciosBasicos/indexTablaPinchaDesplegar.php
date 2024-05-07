@@ -29,7 +29,7 @@
     $fila = 0;
     foreach ($contactos as $contacto) {
     ?>
-    <tr><td> <a href="indexPrueba.php?fila=<?= $fila ?>" > <?= $contacto["name"] ?>  </td>
+    <tr><td> <a href="indexTablaPinchaDesplegar.php?fila=<?= $fila ?>" > <?= $contacto["name"] ?>  </td>
     <?php 
         if ((isset($_GET["fila"])) && ($_GET["fila"] == $fila)) {
     ?>
@@ -48,3 +48,4 @@
 ?>
 
 </table>
+</html>

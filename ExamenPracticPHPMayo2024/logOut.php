@@ -6,6 +6,6 @@
         session_destroy();
     } else {
         echo "La sesión no esta abierta "  ;
-        header ("location:laXarxa.php ");
+        header ("location:laXarxaIndex.php ");
     };
 ?>           

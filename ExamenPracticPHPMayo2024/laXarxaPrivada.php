@@ -19,10 +19,14 @@
 
     } else {
         echo "La sesión no esta abierta o no tengo todavia ningun resultado"  ;
-        header ("location:laXarxa.php ");
+        header ("location:laXarxaIndex.php ");
     };
 
     ?>
+    <div id="laXarxaPrivada">
+        <p name=" usuario"><strong>"HOLA ".<?=$user;?></strong></p>
+        <a href="logOut.php">LogOut</a>
+    </div>
 
     <a href='addPost.php' > Añadir una publicacion </a></td> 
         
@@ -35,7 +39,7 @@
             "imagen" => "https://www.cuina.cat/uploads/s1/65/74/83/red-delicious_22_645x400.jpeg"
         ),
         array(
-            "titulo" => "quo vero reiciendis velit similique earum",
+            "titulo" => "quo vero reiciendis velit simil",
             "descripcion" => "est natus enim nihil est doloreostrum voluptatem reiciendis et",
             "imagen"  => "https://botiga.mercatfontetes.cat/598-large_default/taronges-1kg-aprox-.jpg"
         ),
@@ -54,7 +58,7 @@
         $imagen = $post ["imagen"];
     ?>
     <tr>
-    <td><?= $titulo ?></td>
+    <td><strong><?= $titulo ?></strong></td>
     <td><?= $descripcion ?></td>
     <td><img src="<?= $imagen ?>" width="50" height="50"</td>
     <td><botton value = "Me Gusta"></td>
@@ -65,11 +69,7 @@
     ?>
     </table>
 
-    <div id="laXarxaPrivada">
-        <p name=" usuario" value= "<?=$user;?>"></p>;
-        <a href="logOut.php"><b>LogOut</b></a>;
-        </div>
-    </div>
+    
 
     
     <?php include ("footer.php") ?>

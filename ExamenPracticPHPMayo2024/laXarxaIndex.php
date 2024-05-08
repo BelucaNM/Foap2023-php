@@ -97,7 +97,7 @@
             Password: <input type="password" name="pwd" value= "<?=$pwd;?>">   <br>
             Recordar: <input type="checkbox" name="recordar" value="0"><br>
             <button type="submit" name="signIN" value="Sign In">Sign In </button>
-            <button type="submit" name="signUp" value="Sign Up">Sign Up </button> 
+            <a href = "laXarxaRegistro.php" name="signUp" value="Sign Up">Sign Up </a> 
             <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
             El indice en el POST es el name <-->
         </form>

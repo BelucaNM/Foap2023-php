@@ -37,7 +37,7 @@
          $nombre = $apellidos = $fNacimiento = $email = $username= $password1 = $password2 ="";
          $error= false;
  
-    if (isset($_POST["enviar"]))
+    if (isset($_POST["enviar"])) // Validaciones
     {
         echo "<p style='background-color:blue;'> Entro en rutina de verificacion </p> ";
 //       print_r($_POST);

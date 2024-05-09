@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta description="Basecon favicon">
     <link rel="shortcut icon" href="laXarxaFavicon.png">
+    <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" />
+        
     <style>
         <?php include "laXarxa.css"; ?>
     </style>
@@ -29,28 +31,31 @@
         <a href="logOut.php">LogOut</a>
     </div>
 
-    <a href='addPost.php' > Añadir una publicacion </a></td> 
+    <a href='addPostForm.php' > Añadir una publicacion </a></td> 
         
     <table> 
-    <?php // vuelvo a 
+    <?php  
+    /*
     $posts = array(
         array(
             "titulo"=> "id labore ex et quam laborum",
             "descripcion"=> "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo m",
-            "imagen" => "https://www.cuina.cat/uploads/s1/65/74/83/red-delicious_22_645x400.jpeg"
+            "imagen" => "./laXarxaImagenes/red-delicious_22_645x400.jpeg"
         ),
         array(
             "titulo" => "quo vero reiciendis velit simil",
             "descripcion" => "est natus enim nihil est doloreostrum voluptatem reiciendis et",
-            "imagen"  => "https://botiga.mercatfontetes.cat/598-large_default/taronges-1kg-aprox-.jpg"
+            "imagen"  => "./laXarxaImagenes/taronges-1kg-aprox-.jpg"
         ),
         array(
             "titulo"=> "odio adipisci rerum aut animi",
             "descripcion"=> "quia molestiae reprehenderit quasi aspernatur\naut expedita occ ratione",
-            "imagen" => "https://etselquemenges.cat/wp-content/media/2012/05/cireres-600.gif",
+            "imagen" => "./laXarxaImagenes/cireres-600.gif",
         )
             
     );
+    */
+    $posts = $_SESSION["arrayPosts"];
 
     foreach ( $posts as $post){
 
@@ -62,7 +67,7 @@
     <td><strong><?= $titulo ?></strong></td>
     <td><?= $descripcion ?></td>
     <td><img src="<?= $imagen ?>" width="50" height="50"</td>
-    <td><botton value = "Me Gusta"></td>
+    <td><a href='' ><span class="icoLike">&#128077;</span></a></td>
     <td><input placeholder = "introduzca su comentario"></td>
     </tr>
     <?php

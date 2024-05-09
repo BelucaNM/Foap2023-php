@@ -147,13 +147,13 @@ if (isset($_POST['submit'])) { // validaciones
                             "imagen" => $targetImage);
 
 //      print_r  ($_SESSION["arrayPosts"] );                 
-                       
         array_push ( $_SESSION["arrayPosts"], $nuevoPost); // añade el post
 //      print_r  ($_SESSION["arrayPosts"] );
+
         header("Location: laXarxaPrivada.php");
 
     } else {
-      unset($_POST["enviar"]);
+        unset($_POST["enviar"]);
     };
   
 };

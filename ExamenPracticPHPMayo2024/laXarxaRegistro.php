@@ -44,10 +44,10 @@
 
         if (!isset ($_POST["nombre"]) || empty ($_POST["nombre"])) 
             {$nombreErr= " Nombre requerido"; $error = true;}
-            else $nombre = $_POST["nombre"];
+            else $nombre = validate_input($_POST["nombre"]);
         if (!isset ($_POST["apellidos"]) || empty ($_POST["apellidos"])) 
             {$apellidosErr= " Apellidos requerido"; $error = true;}
-            else $apellidos = $_POST["apellidos"];
+            else $apellidos = validate_input($_POST["apellidos"]);
 
         if (isset ($_POST["fNacimiento"])) {
 
@@ -83,7 +83,7 @@
                 $usernameErr=  " Formato incorrecto`. Use solo letras.";
                 $error = true;
                 };
-            $username = $_POST["username"];
+                $username = $_POST["username"];
         };
 
         if (!isset ($_POST["password1"]) || empty ($_POST["password1"])) 

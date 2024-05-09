@@ -1,0 +1,14 @@
+#header {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#avisoLegal, #finalidad{
+    position: relative;
+    margin-bottom: 15px;
+    border: 2px solid red;
+}
+
+td { border: 2px solid red;}
+table {border:  collapse; }

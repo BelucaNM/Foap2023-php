@@ -6,7 +6,8 @@
         <meta description="Basecon favicon">
         <link rel="shortcut icon" href="laXarxaFavicon.png">
   		
-  	<style>
+  	<style> 
+        <?php include "laXarxa.css"; ?>
 	</style>
 	</head>
 
@@ -15,8 +16,7 @@
 
 	<?php 
     include ("header.php");
-
-    
+       
 
         function validate_input($input){ // sanear datos
             $input = trim ($input);
@@ -40,7 +40,7 @@
     if (isset($_POST["enviar"]))
     {
         echo "<p style='background-color:blue;'> Entro en rutina de verificacion </p> ";
-        print_r($_POST);
+//       print_r($_POST);
 
         if (!isset ($_POST["nombre"]) || empty ($_POST["nombre"])) 
             {$nombreErr= " Nombre requerido"; $error = true;}
@@ -49,19 +49,41 @@
             {$apellidosErr= " Apellidos requerido"; $error = true;}
             else $apellidos = $_POST["apellidos"];
 
-        if (!isset ($_POST["email"]) || empty ($_POST["email"])) 
-            {$emailErr=  " Email requerido";$error = true;}
-            else {if (!is_valid_email($_POST["email"])){
-                    $emailErr=  " Formato Email incorrecto";$error = true;}
-            else {$email1 = $_POST["email"];};
+        if (isset ($_POST["fNacimiento"])) {
+
+            $fNacimiento = $_POST["fNacimiento"];
+            $dia_actual = date("Y-m-d");
+            $edad_diff = date_diff(date_create($fNacimiento), date_create($dia_actual));
+            $edad= $edad_diff->format('%y');
+
+            if ($edad < 18)  {
+                    $edadErr=  " Usted tiene". $edad. " años. Debe ser mayor de 18 años";$error = true;
+            } else {
+                    $fNacimiento = $_POST["fNacimiento"];}}
+            
+
+        if (!isset ($_POST["email"]) || empty ($_POST["email"])) {
+            $emailErr=  " Email requerido";
+            $error = true;
+            } else {
+                if (!is_valid_email($_POST["email"])){
+                    $emailErr=  " Formato Email incorrecto";
+                    $error = true;
+                    };
+                $email = $_POST["email"];
+                
             };
             
 
-         if (!isset ($_POST["username"]) || empty ($_POST["username"])) 
-            {$password1Err=  " Username requerido";$error = true;}
-            else {if (!is_solo_letras($_POST["username"])){
-                $usernameErr=  " Formato username incorrecto";$error = true;}
-            else $username = $_POST["username"];
+         if (!isset ($_POST["username"]) || empty ($_POST["username"])) {
+            $password1Err=  " Username requerido";
+            $error = true;
+            } else {
+                if (!is_solo_letras($_POST["username"])){
+                $usernameErr=  " Formato incorrecto`. Use solo letras.";
+                $error = true;
+                };
+            $username = $_POST["username"];
         };
 
         if (!isset ($_POST["password1"]) || empty ($_POST["password1"])) 
@@ -73,29 +95,25 @@
         if (($password1 !== "") && ($password2 !== "") && ($password1 !== $password2))
             {$password2Err=  " Campos password no coinciden ";$error = true;}
 
-        if (isset ($_POST["fNacimiento"])) {
-            $hoy = new DateTime();
-            $fNacimiento = $_POST["fNacimiento"];
-            $cumpleanos = new DateTime($fNacimiento);
-            $edad = $hoy->diff($cumpleanos);
-            if (($edad->y) < 18) 
-            {$edadErr=  " Debe ser mayor de 18 años";$error = true;}
-            else {$fNacimiento = $_POST["fNacimiento"];}}
+ 
 
-        if (!$error)  echo "<p style='color:green;'> Todo parece correcto </p> ";
-        else unset($_POST["enviar"]);
+        if (!$error)  {
+            echo "<p style='color:green;'> Todo parece correcto </p> ";
+            unset($_POST["enviar"]);
+            header("Location: laXarxaIndex.php?nuevoRegistro=1");
+            };
     }
     ?>
     <div id="entradaDatos">
-        <form  method="post" action=" laXarxaIndex.php"> 
+        <form  method="post" action=""> 
         
         Nombre: <input type="text" name="nombre" value="<?php echo $nombre;?>"> 
                 <span class="error" style="color:red;">* <?php echo $nombreErr;?></span><br><br>
         Apellidos: <input type="text" name="apellidos" value="<?php echo $apellidos;?>">
                 <span class="error" style="color:red;">* <?php echo $apellidosErr;?></span><br><br>
-        Fecha Nacimiento: <input type="date" name="fnacimiento" value="<?php echo $fNacimiento;?>">
+        Fecha Nacimiento: <input type="date" name="fNacimiento" value="<?php echo $fNacimiento;?>">
                 <span class="error" style="color:red;"> <?php echo $edadErr;?></span><br><br>
-        email: <input type="email" name="email" value="<?php echo $email;?>">
+        email: <input type="text" name="email" value="<?php echo $email;?>">
                 <span class="error" style="color:red;">* <?php echo $emailErr;?></span><br><br>
         username: <input type="text" name="username" value="<?php echo $username;?>"> 
                 <span class="error" style="color:red;">* <?php echo $usernameErr;?></span><br><br>

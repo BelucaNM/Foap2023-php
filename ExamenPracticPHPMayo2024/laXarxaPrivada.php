@@ -5,6 +5,7 @@
     <meta description="Basecon favicon">
     <link rel="shortcut icon" href="laXarxaFavicon.png">
     <style>
+        <?php include "laXarxa.css"; ?>
     </style>
 </head>
 
@@ -24,7 +25,7 @@
 
     ?>
     <div id="laXarxaPrivada">
-        <p name=" usuario"><strong>"HOLA ".<?=$user;?></strong></p>
+        <p name=" usuario"><strong>HOLA <?=$user;?></strong></p>
         <a href="logOut.php">LogOut</a>
     </div>
 

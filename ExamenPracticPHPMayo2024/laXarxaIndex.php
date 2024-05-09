@@ -8,13 +8,7 @@
         <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" />
        
         <style>
-            
-            
-            td { border: 2px solid red;}
-            table {border:  collapse; }
-            
-            
-            
+          
         </style>
    
     
@@ -32,7 +26,7 @@
             array( "nombre" => "toni",   "password" => "aefe34008e63f1eb205dc4c4b8322253" )
         );
            
-        $user = $pwd = $error= "";
+        $user = $pwd = $error= $checked = "";
         function validate_input($input){ // sanear datos
             $input = trim ($input);
             $input = htmlspecialchars ($input);
@@ -40,11 +34,13 @@
             return $input;
         
         }
-        if (($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST['signIN'])) { // verificar entrada por formulario
+        if (($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST['signIn'])) { // verificar entrada por formulario
     
             $username = validate_input ($_POST['user']);
             $password = validate_input ($_POST['pwd']);
+
             
+//            print_r ( $_POST);
 
             if (empty($_POST["user"]) || empty($_POST["pwd"])) {
                 $error= "Introduzca Usuario y Password";
@@ -64,11 +60,15 @@
                     ]);
                     $_SESSION["usuario"] = $_POST["user"]; // inicia session
 
-                    if (isset($_POST['recordar'])) { // crear una cookie para recordar el usuario
+                    if (isset($_POST['recordar'])) { // crear una cookie para recordar el usuario con password encriptada
 
-                        $cookie_name ="remember_me";
-                        $cookie_value =1;
+                        $cookie_name ="remember_me[0]";
+                        $cookie_value =$md5_password;
                         $cookie_expiry_time = time() + (24*3600); // un dia
+                        setcookie($cookie_name,$cookie_value,$cookie_expiry_time,"/","",true,true);
+                        
+                        $cookie_name ="remember_me[1]";
+                        $cookie_value =$username;
                         setcookie($cookie_name,$cookie_value,$cookie_expiry_time,"/","",true,true);
                         
                     }
@@ -81,8 +81,13 @@
                
                 if (isset($_POST["user"])) {$user = $username;};
                 if (isset($_POST["pwd"]))  {$pwd = $password;};
+                if (isset($_POST["recordar"]))  {$checked = 1;};
                 
             }
+        };
+
+        if (isset($_GET['nuevoRegistro'])){ //vengo desde laXarxaRegistro 
+            $error = "Se ha dado de alta en La Xarxa. Por favor introduzca credenciales para acceso.";
         };
         ?>
 
@@ -95,8 +100,8 @@
         <form method="post">
             Usuario  : <input type="text" name="user" value= "<?=$user;?>"> <br><br>
             Password: <input type="password" name="pwd" value= "<?=$pwd;?>">   <br>
-            Recordar: <input type="checkbox" name="recordar" value="0"><br>
-            <button type="submit" name="signIN" value="Sign In">Sign In </button>
+            Recordar: <input type="checkbox" name="recordar" value="Si" <?php if ($checked) echo "checked"; ?>><br><br>
+            <button type="submit" name="signIn" value="SignIn">Sign In </button>
             <a href = "laXarxaRegistro.php" name="signUp" value="Sign Up">Sign Up </a> 
             <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
             El indice en el POST es el name <-->

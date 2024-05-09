@@ -8,7 +8,7 @@
         <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" />
        
         <style>
-          
+          <?php include "laXarxa.css"; ?>
         </style>
    
     
@@ -59,6 +59,8 @@
                         'cookie_httponly'=> 1
                     ]);
                     $_SESSION["usuario"] = $_POST["user"]; // inicia session
+
+            // Guarda array como datos para simulacion
 
                     $_SESSION["arrayPosts"] = array(
                         array(
@@ -126,5 +128,7 @@
             El indice en el POST es el name <-->
         </form>
     </div>
+    <?php include ("footer.php"); ?>
+
 </body>
 </html>           

@@ -33,7 +33,7 @@
 
     <a href='addPostForm.php' > Añadir una publicacion </a></td> 
         
-     
+    <table> 
     <?php  
     /* Los datos se guardan en sesion  al abrir la sesion 
     $posts = array(
@@ -63,24 +63,13 @@
         $descripcion = $post["descripcion"];
         $imagen = $post ["imagen"];
     ?>
-    
-
-    <h2>Card</h2>
-    <div class="card">
-    <img src="<?= $imagen ?>" style="width:100%">
-    <div class="container">
-    <h4><b><?= $titulo ?></b></h4> 
-    <p><?= $descripcion ?></p> 
-    <a href='' ><span class="icoLike">&#128077;</span></a>
-    <input placeholder = "introduzca su comentario">
-  </div>
-</div>
-
-
-
-
-
-    
+    <tr>
+    <td><strong><?= $titulo ?></strong></td>
+    <td><?= $descripcion ?></td>
+    <td><img src="<?= $imagen ?>" width="50" height="50"</td>
+    <td><a href='' ><span class="icoLike">&#128077;</span></a></td>
+    <td><input placeholder = "introduzca su comentario"></td>
+    </tr>
     <?php
     };
     ?>

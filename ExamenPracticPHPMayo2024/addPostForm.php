@@ -145,9 +145,11 @@ if (isset($_POST['submit'])) { // validaciones
         $nuevoPost = array( "titulo"=> $pTitulo, 
                             "descripcion"=> $pDescripcion, 
                             "imagen" => $targetImage);
-        print_r  ($_SESSION["arrayPosts"] );                 
+
+//      print_r  ($_SESSION["arrayPosts"] );                 
                        
         array_push ( $_SESSION["arrayPosts"], $nuevoPost); // añade el post
+//      print_r  ($_SESSION["arrayPosts"] );
         header("Location: laXarxaPrivada.php");
 
     } else {

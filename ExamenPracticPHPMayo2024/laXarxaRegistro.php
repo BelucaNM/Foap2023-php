@@ -129,7 +129,6 @@
     ?>
     <div id="entradaDatos">
         <form  method="post" action=""> 
-        
         <div>
             <label >Nombre:</label>
             <input type="text" name="nombre" value="<?php echo $nombre;?>">
@@ -146,22 +145,22 @@
             <span class="error" style="color:red;"> * <?php echo $edadErr;?></span>
         </div><br> 
         <div>
-            <label >email:</label>
+            <label >eMail:</label>
             <input type="text" name="email" value="<?php echo $email;?>">
             <span class="error" style="color:red;">* <?php echo $emailErr;?></span>
         </div><br> 
         <div>
-            <label >username:</label>
+            <label >Username:</label>
             <input type="text" name="username" value="<?php echo $username;?>"> 
             <span class="error" style="color:red;">* <?php echo $usernameErr;?></span>
         </div><br> 
         <div>
-            <label >password:</label>
+            <label >Password:</label>
             <input type="password" name="password1" value="<?php echo $password1;?>">
             <span class="error" style="color:red;">* <?php echo $password1Err;?></span>
         </div><br> 
         <div>
-            <label >Reintroducir password::</label>    
+            <label >Reintroduzca password:</label>    
             <input type="password" name="password2" value="<?php echo $password2;?>">
             <span class="error" style="color:red;">* <?php echo $password2Err;?></span>
         </div><br> 

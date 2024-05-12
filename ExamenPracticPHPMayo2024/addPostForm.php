@@ -25,9 +25,9 @@ if (isset($_POST['submit'])) { // validaciones
     $uploadOk = false;
     
     
-    echo "<br/> Entro en rutina de verificacion ";
-    print_r($_POST);
-    print_r($_FILES);
+//    echo "<br/> Entro en rutina de verificacion ";
+//    print_r($_POST);
+//    print_r($_FILES);
   
   // valida campos de texto
     if (!isset ($_POST["pTitulo"]) || empty ($_POST["pTitulo"])) 
@@ -67,10 +67,10 @@ if (isset($_POST['submit'])) { // validaciones
     {
         
 
-        print_r($_POST);
-        echo "<br>";
-        print_r($_FILES);
-        echo "<br>";
+    //    print_r($_POST);
+    //    echo "<br>";
+    //    print_r($_FILES);
+    //    echo "<br>";
     
         $uploadOk = false;
     
@@ -79,18 +79,18 @@ if (isset($_POST['submit'])) { // validaciones
             $uploadOk = true;
              // chequea un formato válido
             $targetDirectorio = "./laXarxaImagenes";
-            echo ($targetDirectorio);
+//            echo ($targetDirectorio);
             $targetFile = basename($_FILES["pImagen"]["name"]);
                 
     
-            if(getimagesize($_FILES["pImagen"]["tmp_name"]) === false) { 
+            if(getimagesize($_FILES["pImagen"]["tmp_name"]) === false) { // chequea si el file es una imagen
                 $pImageErr ="El archivo no es una imagen ";
                 $uploadOk = false ;
-            };
+                };
     
                 
-            if ($uploadOk ){
-                // chequea el formato de la imagen
+            if ($uploadOk ){ // chequea el formato de la imagen
+                
                 $fileType = strtolower(pathinfo($_FILES['pImagen']['name'],PATHINFO_EXTENSION));
                 $arrayImageTypes = ["jpg","png","jpeg","gif"];
                     
@@ -100,8 +100,8 @@ if (isset($_POST['submit'])) { // validaciones
                     };
                 };
                         
-            if ($uploadOk ){
-                // mira si el directorio existe; si no existe lo crea
+            if ($uploadOk ){ // mira si el directorio existe; si no existe lo crea
+                
                 $isDirectorio = true;
                 if (!file_exists($targetDirectorio)) {
                     $isDirectorio = mkdir($targetDirectorio, 0777,true); // 777 son autorizaciones
@@ -115,36 +115,29 @@ if (isset($_POST['submit'])) { // validaciones
             if ($uploadOk ){  // Check if file already exists
     
                 $targetImage = $targetDirectorio ."/". $_FILES['pImagen']['name'];
-                if (file_exists($targetImage)) {
-                    $pImageErr= "La imagen ya existe.";
-                    $uploadOk = false;
-                    };
-                };
-    
-                if ($uploadOk ){
+                if (!file_exists($targetImage)) { // si la imagen existe ya no hay que subirla
+                    
                     $uploadOK = move_uploaded_file(
                         $_FILES['pImagen']['tmp_name'],
                         $targetImage); // move devuelve true/false ... hay que ver si se ha creado
-                };
-    
+                    };
     
                 if (!$uploadOk) { // no se ha movido el fichero a sus directorio definitivo: $targetImage
+                    $imageErr="No se ha podido subir el archivo Error:" . $_FILES['pImagen']['error'] . "\n";
                     $error = true;
-                   };
-                
-                 
-            } else {
-                $imageErr="No se ha podido subir el archivo Error:" . $_FILES['pImagen']['error'] . "\n";
-                $error = true;
-            };
+                    };
+                    
+                };
         
-    };
+            };
+        };
 
     if (!$error)  {
-        echo "<p style='color:green;'> Todo parece correcto </p> ";
+//      echo "<p style='color:green;'> Todo parece correcto </p> ";
         $nuevoPost = array( "titulo"=> $pTitulo, 
                             "descripcion"=> $pDescripcion, 
-                            "imagen" => $targetImage);
+                            "imagen" => $targetImage,
+                            "comentario" => "");
 
 //      print_r  ($_SESSION["arrayPosts"] );                 
         array_push ( $_SESSION["arrayPosts"], $nuevoPost); // añade el post
@@ -153,7 +146,7 @@ if (isset($_POST['submit'])) { // validaciones
         header("Location: laXarxaPrivada.php");
 
     } else {
-        unset($_POST["enviar"]);
+        unset($_POST["submit"]);
     };
   
 };
@@ -161,7 +154,7 @@ if (isset($_POST['submit'])) { // validaciones
     
 
 ?>
-
+<div>
 <form action = "" method="POST" enctype= "multipart/form-data">
         <P> Introduzca Datos: </P>
         Titulo : <input name="pTitulo" value = '<?=$pTitulo?>' placeholder="introducir el titulo del Post">
@@ -171,10 +164,10 @@ if (isset($_POST['submit'])) { // validaciones
         Imagen: <input type= "file" id="pImagen" name="pImagen" value = "<?=$targetImage?>" >
         <span class="error" style="color:red;">* <?php echo $pImageErr;?></span><br><br>
         <input type="hidden" name"MAX_FILE_SIZE" value="102400">
-        <input type="submit" name="submit" value="aceptar">
-        <a href = "laXarxaPrivada.php"> Cerrar editor </a>
+        <input type="submit" name="submit" value="Aceptar">
 </form>
-
+<a class="btnStack" href = "laXarxaPrivada.php"> Cerrar editor </a>
+</div>
 <?php include ("footer.php") ?>
 </body>
 </html>

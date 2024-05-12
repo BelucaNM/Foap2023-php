@@ -1,7 +1,7 @@
 <html>
 
     <head>
-        <title> VerFiles.php Lee lista de ficheros en un directorio y presenta tabla PHP con links a Delete y Rename</title>
+        <title> laXarxaIndex.php </title>
         <meta charset="utf-8" >
         <meta description="Basecon favicon">
         <link rel="shortcut icon" href="laXarxaFavicon.png">
@@ -15,10 +15,12 @@
     <?php
         include ("header.php");
        
-        // $pwdGuardado = "8a86ac34c87befc560c6b596117c91cd"; //beluca
-        // $pwdGuardado = "a94652aa97c7211ba8954dd15a3cf838"; // juan
-        // $pwdGuardado = "aefe34008e63f1eb205dc4c4b8322253"; // toni
+        // $pwdGuardado = "8a86ac34c87befc560c6b596117c91cd"; corresponde a "beluca"
+        // $pwdGuardado = "a94652aa97c7211ba8954dd15a3cf838"; corresponde a "juan"
+        // $pwdGuardado = "aefe34008e63f1eb205dc4c4b8322253"; corresponde a "toni"
         // $pwdGuardado= md5('nombre');
+
+        //Utilizo un array de tres usuarios
     
         $usuarios = array(
             array( "nombre" => "beluca", "password" => "8a86ac34c87befc560c6b596117c91cd" ),
@@ -60,23 +62,27 @@
                     ]);
                     $_SESSION["usuario"] = $_POST["user"]; // inicia session
 
-            // Guarda array como datos para simulacion
+            // Se trabaja sin DB
+            // Se guarda en SESSION un array con tres publicaciones para simulacion
 
                     $_SESSION["arrayPosts"] = array(
                         array(
                             "titulo"=> "id labore ex et quam laborum",
                             "descripcion"=> "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo m",
-                            "imagen" => "./laXarxaImagenes/red-delicious_22_645x400.jpeg"
+                            "imagen" => "./laXarxaImagenes/red-delicious_22_645x400.jpeg",
+                            "comentario" => ""
                         ),
                         array(
                             "titulo" => "quo vero reiciendis velit simil",
                             "descripcion" => "est natus enim nihil est doloreostrum voluptatem reiciendis et",
-                            "imagen"  => "./laXarxaImagenes/taronges-1kg-aprox-.jpg"
+                            "imagen"  => "./laXarxaImagenes/taronges-1kg-aprox-.jpg",
+                            "comentario" => ""
                         ),
                         array(
                             "titulo"=> "odio adipisci rerum aut animi",
                             "descripcion"=> "quia molestiae reprehenderit quasi aspernatur\naut expedita occ ratione",
                             "imagen" => "./laXarxaImagenes/cireres-600.gif",
+                            "comentario" => ""
                         )
                             
                     );
@@ -98,7 +104,7 @@
                 } }   
                 
                 $error = 'Error en validación. Reintroduzca datos'; // credenciales no correctas
-                unset($_POST["signIN"]);
+                unset($_POST["signIn"]);
                
                 if (isset($_POST["user"])) {$user = $username;};
                 if (isset($_POST["pwd"]))  {$pwd = $password;};
@@ -122,11 +128,13 @@
             Usuario  : <input type="text" name="user" value= "<?=$user;?>"> <br><br>
             Password: <input type="password" name="pwd" value= "<?=$pwd;?>">   <br>
             Recordar: <input type="checkbox" name="recordar" value="Si" <?php if ($checked) echo "checked"; ?>><br><br>
-            <button type="submit" name="signIn" value="SignIn">Sign In </button>
-            <a href = "laXarxaRegistro.php" name="signUp" value="Sign Up">Sign Up </a> 
+            <input type="submit" name="signIn" value="Sign In">
             <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
             El indice en el POST es el name <-->
         </form>
+    </div>
+    <div>
+        <a class = "btnStack"  href = "laXarxaRegistro.php" name="signUp" value="Sign Up">Sign Up </a> 
     </div>
     <?php include ("footer.php"); ?>
 

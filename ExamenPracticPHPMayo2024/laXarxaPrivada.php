@@ -5,10 +5,8 @@
     <meta description="Basecon favicon">
     <link rel="shortcut icon" href="laXarxaFavicon.png">
     <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" />
+    <link rel="stylesheet" type="text/css" href="laXarxa.css" title="style" />
         
-    <style>
-        <?php include "laXarxa.css"; ?>
-    </style>
 </head>
 
 <body>
@@ -27,11 +25,11 @@
 
     ?>
     <div id="laXarxaPrivada">
-        <p name=" usuario"><strong>HOLA <?=$user;?></strong></p>
-        <a class="btnStack" href="logOut.php">LogOut</a>
+        <p name=" usuario"><strong>HOLA <?=$user;?> !</strong></p>
+        <a class="btnStack" href="logOut.php">Log Out</a>
     </div>
-    <a class="btnStack" href='addPostForm.php' > Añadir una publicacion </a></td> 
-
+    <a class="btnStack" href='addPostForm.php' > Añadir una publicacion </a> 
+    <div class="lasCards"> 
     <?php  
     /* Los datos se guardan en sesion  al abrir la sesion 
     $posts = array(
@@ -65,19 +63,23 @@
         $imagen = $post ["imagen"];
         $comentario = $post ["comentario"];
     ?>
-    <h2>Card</h2>
+    
     <div class="card">
-        <img src="<?= $imagen ?>" style="width:100%">
+        <h2>POST</h2>
+        <img src="<?= $imagen ?>">
         <div class="container">
             <h4><b><?= $titulo ?></b></h4> 
             <p><?= $descripcion ?></p> 
-            <a href='' ><span class="icoLike">&#128077;</span></a> // pulsador para likes
+        </div>
+        <div>
+            <a href='' ><span class="icoLike">&#128077;</span></a>
             <input placeholder = "introduzca su comentario" value= "<?=$comentario;?>">
         </div>
     </div>
     <?php
     };
     ?>
+    </div>
     <?php include ("footer.php") ?>
 </body>
 </html>

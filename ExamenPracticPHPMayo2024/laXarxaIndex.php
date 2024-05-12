@@ -6,11 +6,9 @@
         <meta description="Basecon favicon">
         <link rel="shortcut icon" href="laXarxaFavicon.png">
         <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" />
-       
-        <style>
-          <?php include "laXarxa.css"; ?>
-        </style>
-   
+        <link rel="stylesheet" type="text/css" href="laXarxa.css" title="style" />
+          
+ 
     
     <?php
         include ("header.php");
@@ -125,9 +123,15 @@
     <div id="login">
         <h3><?=$error ?></h3>
         <form method="post">
-            Usuario  : <input type="text" name="user" value= "<?=$user;?>"> <br><br>
-            Password: <input type="password" name="pwd" value= "<?=$pwd;?>">   <br>
-            Recordar: <input type="checkbox" name="recordar" value="Si" <?php if ($checked) echo "checked"; ?>><br><br>
+            <div>
+                <label >Usuario:</label>   
+                <input type="text" name="user" value= "<?=$user;?>"> 
+            </div> <br>
+            <div>
+                <label>Password: </label> 
+                 <input type="password" name="pwd" value= "<?=$pwd;?>">   
+            </div> <br>
+            Seleccione para recordar: <input type="checkbox" name="recordar" value="Si" <?php if ($checked) echo "checked"; ?>><br><br>
             <input type="submit" name="signIn" value="Sign In">
             <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
             El indice en el POST es el name <-->

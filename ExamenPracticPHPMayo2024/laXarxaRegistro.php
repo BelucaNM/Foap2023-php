@@ -130,23 +130,46 @@
     <div id="entradaDatos">
         <form  method="post" action=""> 
         
-        Nombre: <input type="text" name="nombre" value="<?php echo $nombre;?>"> 
-                <span class="error" style="color:red;">* <?php echo $nombreErr;?></span><br><br>
-        Apellidos: <input type="text" name="apellidos" value="<?php echo $apellidos;?>">
-                <span class="error" style="color:red;">* <?php echo $apellidosErr;?></span><br><br>
-        Fecha Nacimiento: <input type="date" name="fNacimiento" value="<?php echo $fNacimiento;?>">
-                <span class="error" style="color:red;"> * <?php echo $edadErr;?></span><br><br>
-        email: <input type="text" name="email" value="<?php echo $email;?>">
-                <span class="error" style="color:red;">* <?php echo $emailErr;?></span><br><br>
-        username: <input type="text" name="username" value="<?php echo $username;?>"> 
-                <span class="error" style="color:red;">* <?php echo $usernameErr;?></span><br><br>
-        password: <input type="password" name="password1" value="<?php echo $password1;?>">
-                <span class="error" style="color:red;">* <?php echo $password1Err;?></span><br><br>
-        Reintroducir password: <input type="password" name="password2" value="<?php echo $password2;?>">
-                <span class="error" style="color:red;">* <?php echo $password2Err;?></span><br><br>
+        <div>
+            <label >Nombre:</label>
+            <input type="text" name="nombre" value="<?php echo $nombre;?>">
+            <span class="error" style="color:red;">* <?php echo $nombreErr;?></span>
+        </div><br> 
+        <div>  
+            <label >Apellidos:</label>
+            <input type="text" name="apellidos" value="<?php echo $apellidos;?>">     
+            <span class="error" style="color:red;">* <?php echo $apellidosErr;?></span>
+        </div><br>
+        <div>
+            <label >Fecha Nacimiento:</label>
+            <input type="date" name="fNacimiento" value="<?php echo $fNacimiento;?>">
+            <span class="error" style="color:red;"> * <?php echo $edadErr;?></span>
+        </div><br> 
+        <div>
+            <label >email:</label>
+            <input type="text" name="email" value="<?php echo $email;?>">
+            <span class="error" style="color:red;">* <?php echo $emailErr;?></span>
+        </div><br> 
+        <div>
+            <label >username:</label>
+            <input type="text" name="username" value="<?php echo $username;?>"> 
+            <span class="error" style="color:red;">* <?php echo $usernameErr;?></span>
+        </div><br> 
+        <div>
+            <label >password:</label>
+            <input type="password" name="password1" value="<?php echo $password1;?>">
+            <span class="error" style="color:red;">* <?php echo $password1Err;?></span>
+        </div><br> 
+        <div>
+            <label >Reintroducir password::</label>    
+            <input type="password" name="password2" value="<?php echo $password2;?>">
+            <span class="error" style="color:red;">* <?php echo $password2Err;?></span>
+        </div><br> 
+        <div>    
                 <input type="submit" name= "submit" value="Submit"> 
         <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
                 El indice en el POST es el name <-->
+        </div><br>
         </form>
         <a class="btnStack" href = "laXarxaIndex.php"> Salir de Registro </a>
     </div>

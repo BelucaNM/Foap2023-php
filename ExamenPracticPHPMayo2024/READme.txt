@@ -22,7 +22,8 @@ entrada por POST
 
 
 
-<title> La Xarxa Privada </title>
+
+<title> La Xarxa Privada </title> PRIVADA
 
 startSession
 
@@ -30,9 +31,12 @@ boton de logOut.php // borra cookies, destruye session // header ("location:laXa
 boton de addPostForm.php 
 
 
-<title> AddPostForm.php </title>
+
+
+<title> AddPostForm.php </title> PRIVADA
 
 startSession
+
  FORM incluye enctype= "multipart/form-data" porque tiene campo textarea
  codigo de UPLOAD de imagen
 

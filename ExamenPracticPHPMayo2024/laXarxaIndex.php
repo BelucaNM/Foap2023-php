@@ -23,8 +23,12 @@
         $usuarios = array(
             array( "nombre" => "beluca", "password" => "8a86ac34c87befc560c6b596117c91cd" ),
             array( "nombre" => "juan",   "password" => "a94652aa97c7211ba8954dd15a3cf838" ),
-            array( "nombre" => "toni",   "password" => "aefe34008e63f1eb205dc4c4b8322253" )
+            array( "nombre" => "toni",   "password" => "aefe34008e63f1eb205dc4c4b8322253" ),
+            array( "nombre" => "juan",   "password" => "12345" ),
+            array( "nombre" => "ikram",  "password" => "12345" )
         );
+
+ 
            
         $user = $pwd = $error= $checked = "";
         function validate_input($input){ // sanear datos
@@ -46,12 +50,13 @@
                 $error= "Introduzca Usuario y Password";
             } else {
 
-                $md5_password = md5($password);
+//              $md5_password = md5($password); documento esta linea para la ultima parte del examen
     
                 foreach ($usuarios as $usuario) {
                     
-                    if (($usuario["nombre"] == $username) && ($usuario["password"] == $md5_password)) 
-                {
+//                  if (($usuario["nombre"] == $username) && ($usuario["password"] == $md5_password)) 
+                    if (($usuario["nombre"] == $username) && ($usuario["password"] == $password)) 
+                    {
                     session_start([
                         'use_only_cookies'=> 1,
                         'cookie_lifetime'=> 0,

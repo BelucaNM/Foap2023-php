@@ -28,6 +28,7 @@
         <p name=" usuario"><strong>HOLA <?=$user;?> !</strong></p>
         <a class="btnStack" href="logOut.php">Log Out</a>
         <a class="btnStack" href="laXarxaLlistatAmics.php">Llistat Amics</a>
+        <a class="btnStack" href="laXarxaLlistatAmicsMeus.php">Llistat el  meus Amics</a>
     </div>
     <a class="btnStack" href='addPostForm.php' > Añadir una publicacion </a> 
     <div class="lasCards"> 

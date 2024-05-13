@@ -34,6 +34,7 @@ boton de addPostForm.php // ("Location: AddPostForm.php");
 
 
 
+
 <title> AddPostForm.php </title> PRIVADA
 
 startSession
@@ -46,5 +47,29 @@ si no Ok => permanece en FORM
 si cerrar   => header("Location: laXarxaPrivada.php");
 
 formulario Post
-	con codigo de UPLOAD de imagen
+Con codigo de UPLOAD de imagen
+
+
+
+<title> laXarxaLlistatAmics.php </title> PRIVADA
+
+se llama desde laXarxaPrivada
+startSession
+
+lista un array de registros de amigos
+form de nom y/o apellido para busqueda de registro
+busqueda avanzada por cualquier str de 3 caracteres en cualquien campo
+
+
+
+<title> laXarxaLlistatAmicsMeus.php </title> PRIVADA
+se llama desde laXarxaPrivada
+startSession
+
+lee en un array el registro de amigos del usuario en session
+en un segundo nivel propone al usuario amigos de amigos
+
+
+
+
 

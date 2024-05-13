@@ -97,7 +97,6 @@
         $nom = $amic["nom"];
         $cognom = $amic["cognom"];
         $imagen = $amic ["imatge"];
-
     
     ?>
        
@@ -125,25 +124,15 @@
             
             $nomAmic = $amic["nom"];
             
-
             for ($i =0; $i < count($amicsPwd); $i++) { 
       
                 if (($amicsPwd[$i]["username"] === $nomAmic)) {
 
-                    $arrayPropuestas = $amicsPwd[$i]["amics"];
-
-        
-            
-            
+                    $arrayPropuestas = $amicsPwd[$i]["amics"];        
                     foreach ( $arrayPropuestas as $propuesta){
                         $nomPropuesta = $propuesta["nom"];
                         $cognomPropuesta = $propuesta["cognom"];
                         $imagenPropuesta = $propuesta ["imatge"];
-                        
-    
-        
-    
-
     
     ?>
        
@@ -152,11 +141,9 @@
         <img src="<?= $imagenPropuesta ?>">
         <div class="container">
             <h4><b><?= $nomPropuesta. " es amigo de ". $nomAmic ?></b></h4> 
-            <p><?= $cognomPropuesta ?></p> 
-            
+            <p><?= $cognomPropuesta ?></p>     
         </div>
     </div>
-
     <?php
                     };
                 };

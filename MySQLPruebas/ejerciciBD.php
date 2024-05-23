@@ -18,13 +18,14 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT id, nombre, apellido FROM personas";
+$sql = "SELECT id, codigoPostal, municipio FROM localidades";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
-    echo "<br>"."id: " . $row["id"]. " - Nombre: " . $row["nombre"]. " " . $row["apellido"];
+    echo "<br>"."-id: " . $row["id"]. " - codigo postal: " . $row["codigoPostal"]. " - municipio " . $row["municipio"];
+//    printf (" $S $S $S \n", $row["id"],$row["codigoPostal"], $row["municipio"]);
   }
 } else {
   echo "0 results";

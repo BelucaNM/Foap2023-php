@@ -19,23 +19,36 @@
        
 
         include_once "funciones.php";
+
         
          $nombreErr = $apellidosErr = $edadErr = $emailErr = "";
          $usernameErr= $password1Err = $password2Err = "";
          $dniErr =  $fNacimientoErr= "";
          $nombre = $apellidos = $fNacimiento = $email = $username= $password1 = $password2 = $password = "";
+         $dni =  $fNacimiento= "";
          $error= false;
  
     if (isset($_POST["submit"])) // Validaciones
     {
         echo "<p> Entro en rutina de verificacion....... </p> ";
-//       print_r($_POST);
+ //       print_r($_POST);
+
+         if (!isset ($_POST["dni"]) || empty ($_POST["dni"])) 
+            {$dniErr= " DNI requerido"; $error = true;
+            } else {
+                if (!is_valid_DNI($_POST["dni"])){
+                    $dniErr=  " Formato DNI incorrecto";
+                    $error = true;
+                } else {
+                    $dni = $_POST["dni"];
+            }
+        };
 
         if (!isset ($_POST["nombre"]) || empty ($_POST["nombre"])) 
             {$nombreErr= " Nombre requerido"; $error = true;}
             else $nombre = validate_input($_POST["nombre"]);
 
-            if (!isset ($_POST["apellidos"]) || empty ($_POST["apellidos"])) 
+        if (!isset ($_POST["apellidos"]) || empty ($_POST["apellidos"])) 
             {$apellidosErr= " Apellidos requerido"; $error = true;}
             else $apellidos = validate_input($_POST["apellidos"]);
 
@@ -52,6 +65,10 @@
                     $fNacimiento = $_POST["fNacimiento"];}}
             
 
+        $telefono = $_POST["telefono"];
+        $empresa = $_POST["empresa"]; 
+        $codPostal = $_POST["codigoPostal"];       
+       
         if (!isset ($_POST["email"]) || empty ($_POST["email"])) {
             $emailErr=  " Email requerido";
             $error = true;
@@ -92,65 +109,70 @@
             {$password2Err=  " Campos password no coinciden ";$error = true;}
 
  
-
+          
         if (!$error)  {
+            unset($_POST["submit"]);
             echo "<p style='color:green;'> Todo parece correcto </p> ";
-            $error = alta_personas ($dni, $nombre, $apellido, $fechaNacimiento, $telefono, $codigoPostal, $idEmpresa, $email, $username, $password);
+            $error = alta_personas ($dni, $nombre, $apellidos, $fNacimiento, $telefono, $codPostal, $empresa, $email, $username, $password1);
             ;
-            if ($error !== "") { // Alta de registro correcto 
-                unset($_POST["submit"]);
-                header("Location: loginForm.php?nuevoRegistro=1");
-            }
+            if (!$error) { // Alta de registro correcto 
+                echo "<p style='color:green;'> Alta de registro correcto </p> ";
+                $nombre = $apellidos = $fNacimiento = $email = $username= $password1 = $password2 = $password = "";
+                $dni =  $fNacimiento= "";
+            } else {
+                echo "<p style='color:red;'> Error al dar de alta el registro </p> ";            
+            };
         };
     }
     ?>
     <div id="entradaDatos">
         <form  method="post" action=""> 
         <div>
-            <br><label> Dni:</label>
-            <input type="text" id = "dni" name="dni" value="<?=$dni;?>">         
-            <span class="error" style="color:red;"><?=$dniErr;?></span>
+            <label> Dni:</label><input type="text" id = "dni" name="dni" value="<?=$dni;?>">
+            <span class="error" style="color:red;">* <?=$dniErr;?></span>
         </div><br> 
         <div>
-            <label >Nombre:</label>
-            <input type="text" name="nombre" value="<?=$nombre;?>">
+            <label >Nombre:</label><input type="text" name="nombre" value="<?=$nombre;?>">
             <span class="error" style="color:red;">* <?=$nombreErr;?></span>
         </div><br> 
         <div>  
-            <label >Apellidos:</label>
-            <input type="text" name="apellidos" value="<?=$apellidos;?>">     
+            <label >Apellidos:</label><input type="text" name="apellidos" value="<?=$apellidos;?>">
             <span class="error" style="color:red;">* <?=$apellidosErr;?></span>
         </div><br>
         <div>
             <label >Fecha Nacimiento:</label>
             <input type="date" name="fNacimiento" value="<?=$fNacimiento;?>">
-            <span class="error" style="color:red;"> * <?=$fNacimientoErr;?></span>
+            <span class="error" style="color:red;">* <?=$fNacimientoErr;?></span>
         </div><br> 
-
-        <label for="empresa">Empresa: </label>
+        <div>
+            <label >Empresa: </label>
 			<select id="empresa" name="empresa">
-			<option value="">---------</option>
+            <option value="">---------</option>
+            <?php  $empresaErr = creaSelEmpresas();?>
 			</select>
-		<br><span id="empresaError" style="font-size: small; color: #f00;"></span>
-
-        <label for="codigoPostal">Codigo Postal: </label>
+		    <span id="empresaError" style="color:red;"><?=$empresaErr;?></span>
+        </div><br>
+        <div>      
+            <label>Codigo Postal: </label>
 			<select id="lsel" name="codigoPostal">
 			<option value="">---------</option>
+            <?php  $codigoPostalError = creaSelCPostal();?>
 			</select>
-		<span id="codigoPostalError" style="font-size: small; color: #f00;"></span>
-
-        <label for="telefono">Teléfono:</label>
-			<input id="telefono" name="telefono" type="text" size="50"></label>
-			<br><span id="telefonoError" style="font-size: small; color: #f00;"></span>
-        <div><br>
-
+		    <span id="codigoPostalError" style="color:red;"></span>
+        </div><br>
+        <div>
+            <label>Teléfono:</label>
+			<input id="telefono" name="telefono" type="text" size="11"></label>
+			<br><span id="telefonoError" style="color:red;"></span>
+        </div><br>
+        <div>
         <label >eMail:</label>
-            <input type="text" name="email" value="<?=$email;?>">
+            <input type="text" name="email" size="30" value="<?=$email;?>">
             <span class="error" style="color:red;">* <?=$emailErr;?></span>
         </div><br> 
         <div>
             <label >Username:</label>
-            <input type="text" name="username" value="<?=$username;?>"> 
+            <input type="text" name="username" size="30" value="<?=$username;?>"> 
             <span class="error" style="color:red;">* <?=$usernameErr;?></span>
         </div><br> 
         <div>
@@ -169,13 +191,11 @@
                 El indice en el POST es el name <-->
         </div><br>
         </form>
-        <a class="btnStack" href = "loginForm.php"> Salir de Registro </a>
+        <a class="btnStack" href = "formLogin.php?nuevoRegistro=1"> Salir de Registro </a>
     </div>
         
   
  <?php include ("footer.php")?> 
 
-	</body>
-
-
+</body>
 </html>

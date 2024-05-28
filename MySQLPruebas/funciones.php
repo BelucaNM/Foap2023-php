@@ -168,7 +168,7 @@
                 if ($result->num_rows > 0) {
                 // output data of each row
                     while($row = $result->fetch_assoc()) {
-                    echo "<option value=". $row["codigoPostal"].">".$row["codigoPostal"].$row["municipio"]."</option>";
+                    echo "<option value=". $row["id"].">".$row["codigoPostal"].$row["municipio"]."</option>";
                     }
                      $error="";
                 } else {

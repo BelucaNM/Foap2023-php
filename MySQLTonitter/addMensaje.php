@@ -1,12 +1,14 @@
 <html>
 <head>
-    <title> AddPostForm.php </title>
+    <title> AddMensaje.php </title>
     <meta charset="utf-8">
     <meta description="Basecon favicon">
     <link rel="shortcut icon" href="laXarxaFavicon.png">
-    <style>
-        <?php include "laXarxa.css"; ?>
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
+
+    <style> <?//php include "laXarxa.css"; ?></style>
 </head>
 
 <body>
@@ -143,7 +145,7 @@ if (isset($_POST['submit'])) { // validaciones
         array_push ( $_SESSION["arrayPosts"], $nuevoPost); // añade el post
 //      print_r  ($_SESSION["arrayPosts"] );
 
-        header("Location: laXarxaPrivada.php");
+        header("Location: laXarxaTonitter.php");
 
     } else {
         unset($_POST["submit"]);
@@ -166,7 +168,7 @@ if (isset($_POST['submit'])) { // validaciones
         <input type="hidden" name"MAX_FILE_SIZE" value="102400">
         <input type="submit" name="submit" value="Aceptar">
 </form>
-<a class="btnStack" href = "laXarxaPrivada.php"> Cerrar editor </a>
+<a class="btnStack" href = "laXarxaTonitter.php"> Cerrar editor </a>
 </div>
 <?php include ("footer.php") ?>
 </body>

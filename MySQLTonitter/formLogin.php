@@ -36,11 +36,11 @@
                     ]);
                     $_SESSION["usuario"] = $_POST["user"]; // inicia session
                     $cookie_name ="remember_me[0]";
-                        $cookie_value =$md5_password;
+                        $cookie_value =$username;
                         $cookie_expiry_time = time() + (24*3600); // un dia
                         setcookie($cookie_name,$cookie_value,$cookie_expiry_time,"/","",true,true);
 
-                    header("Location:laXarxaTonitter.php"); 
+                //    header("Location:laXarxaTonitter.php"); 
                 } else {
                     
                     $error = 'Error en validación. Reintroduzca datos'; // credenciales no correctas
@@ -64,9 +64,10 @@
 
     
 <?php include ("header.php");?> 
-    <div id="login">
-    <div class = "container mt-3">
+    
+    <div  id="login" class = "container mt-3 bg-light">
             <form method="post">
+            <br><span><?=$error;?></span><br>
             <div class="mb-3 mt-3">
                 <label>Usuario:</label>   
                 <input type="text" class="form-control" style="margin-top:5px!important" name="user" value= "<?=$user;?>"> 
@@ -80,17 +81,19 @@
                 <input class="form-check-input" type="checkbox" name="recordar" value="Si" <?php if ($checked) echo "checked"; ?>>Seleccione para recordar 
                 </label>
             </div>    
+            
             <div>
                 <input class="btn btn-primary" type="submit" name="signIn" value="Sign In">
-                <br><span><?=$error;?></span><br>
-            </div>
+            </div>    
+            
             <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
             El indice en el POST es el name <-->
-        </form>
+            </form>
     </div>
-    <div>
-        <a class = "btnStack"  href = "formRegistro.php" name="signUp" value="Sign Up">Sign Up</a> 
+    <div class = "container mt-3 bg-light">
+        <a class = "btn btn-lg btn-link"  href = "formRegistro.php" name="signUp" value="Sign Up">Sign Up</a> 
     </div>
+    
     </div>
   
 <?php include ("footer.php");?>  

@@ -62,7 +62,7 @@
 
         // Create connection
             $conn = new mysqli($servername, $adminuser, $adminpwd, $dbname);
-
+            $error = false;
         // Check connection
 
             if ($conn->connect_error) {
@@ -71,11 +71,14 @@
                     
             } else {
                 $sql = "SELECT * FROM personas WHERE username LIKE '$username' AND password LIKE '$password';";
+                echo $sql;
                 $result = $conn->query($sql);
+                echo $result;
                 if ($result->num_rows == 1) {
-                    $error = ""; // credenciales  correctas 
+                    $error = true; // credenciales no correctas 
+
                 } else {   
-                    $error = 'Error en validación. Reintroduzca datos'; // credenciales no correctas
+                    $error = true; // Error en validación. Reintroduzca datos
                 };    
                  $conn->close();
                 }

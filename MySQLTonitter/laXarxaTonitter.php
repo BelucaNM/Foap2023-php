@@ -29,10 +29,10 @@
         <a class="btnStack" href="logOut.php">Log Out</a>
         <a class="btnStack" href='buscarMensajes.php' > Buscar Mensajes </a> 
         <a class="btnStack" href='buscarPersonas.php' > Buscar Subscripciones </a> 
-        <a class="btnStack" href='addPostForm.php' > Añadir una publicacion </a> 
+        <a class="btnStack" href='addMensaje.php' > Añadir una publicacion </a> 
         <a class="btnStack" href='addSuscripcion.php' > Añadir una Subscripcion </a> 
         <a class="btnStack" href="llistatAmics.php">Listado de  Amics</a>
-        <a class="btnStack" href="llistatMensajes.php">Listado de Mensajes</a>
+        
      
     </div>
     
@@ -59,7 +59,7 @@
         $sql ="SELECT mensajes.id, mensajes.fecha, personas.nombre as nombre_user, personas.apellido as apellido_user,mensajes.titulo, 
                 mensajes.descripcion,mensajes.imagenURL 
                 FROM mensajes 
-                LEFT JOIN
+                JOIN
                 personas ON mensajes.idUser = personas.id ORDER BY fecha LIMIT 10";
 
         $result = $conn->query($sql);

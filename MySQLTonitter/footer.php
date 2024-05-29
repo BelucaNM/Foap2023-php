@@ -1,5 +1,5 @@
 <footer>
-<div id="avisoLegal" class = "container mt-3">
+<div id="avisoLegal" class = "container mt-3 fw-light fst-italic fs-6">
     <p class="aviso bg-secondary text-white"><b>AVISO LEGAL:</b> En cumplimiento del artículo 10 de la Ley 34 / 2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico, 
     el Titular, Isabel Luisa Navarrina Martínez, expone sus datos identificativos.
     /(No procede registro mercantil/)

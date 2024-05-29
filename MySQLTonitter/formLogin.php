@@ -4,6 +4,7 @@
         <title> MySQLPruebas loginForm.php </title>
         <meta charset="utf-8" >
         <meta description="Basecon favicon">
+        <link rel="shortcut icon" href=".\imgCodigo\laXarxaFavicon.png">
 <!-- > <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" /> 
         <link rel="stylesheet" type="text/css" href="estilo.css" title="style" /><-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +28,7 @@
                 $password = validate_input ($_POST['pwd']);
 
                 $error = existe_User ($username, $password) ;
-                if ($error !== "") { // credenciales  correctas  , abre session y cookies
+                if (!$error) { // credenciales  correctas  , abre session y cookies
                     session_start([
                         'use_only_cookies'=> 1,
                         'cookie_lifetime'=> 0,
@@ -40,7 +41,7 @@
                         $cookie_expiry_time = time() + (24*3600); // un dia
                         setcookie($cookie_name,$cookie_value,$cookie_expiry_time,"/","",true,true);
 
-                //    header("Location:laXarxaTonitter.php"); 
+                    header("Location:laXarxaTonitter.php"); 
                 } else {
                     
                     $error = 'Error en validación. Reintroduzca datos'; // credenciales no correctas

@@ -4,14 +4,18 @@
         <title> MySQLPruebas loginForm.php </title>
         <meta charset="utf-8" >
         <meta description="Basecon favicon">
-<!-- > <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" /> <-->
-        <link rel="stylesheet" type="text/css" href="estilo.css" title="style" />
- 
-    
+<!-- > <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" /> 
+        <link rel="stylesheet" type="text/css" href="estilo.css" title="style" /><-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
+    </head>
+
+    <body>
     <?php
       
         include_once "funciones.php";
-        $user = $pwd = $sql = $error= $result = "";
+        $user = $pwd = $sql = $error= $result = $checked= "";
 
     
         if (($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST['signIn'])) { // verificar entrada por formulario
@@ -61,22 +65,24 @@
     
 <?php include ("header.php");?> 
     <div id="login">
+    <div class = "container mt-3 ws-grey" style ="background-color: gainsboro;">
             <form method="post">
+            <div class="mb-3 mt-3">
+                <label>Usuario:</label>   
+                <input type="text" class="form-control" style="margin-top:5px!important" name="user" value= "<?=$user;?>"> 
+            </div> 
             <div>
-                <label >Usuario:</label>   
-                <input type="text" name="user" value= "<?=$user;?>"> 
-            </div> <br>
+                <label>Password:</label> 
+                <input type="text" class="form-control" style="margin-top:5px!important" name="pwd" value= "<?=$pwd;?>">   
+            </div> 
+            <div class="form-check mb-3">
+                <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="recordar" value="Si" <?php if ($checked) echo "checked"; ?>>Seleccione para recordar 
+                </label>
+            </div>    
             <div>
-                <label>Password: </label> 
-                <input type="text" name="pwd" value= "<?=$pwd;?>">   
-            </div> <br>
-            Seleccione para recordar: <input type="checkbox" name="recordar" value="Si" <?php if ($checked) echo "checked"; ?>><br><br>
-            
-                
-            <div>
-                <input type="submit" name="signIn" value="Sign In">
+                <input class="btn btn-primary" type="submit" name="signIn" value="Sign In">
                 <br><span><?=$error;?></span><br>
-
             </div>
             <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
             El indice en el POST es el name <-->
@@ -84,6 +90,7 @@
     </div>
     <div>
         <a class = "btnStack"  href = "formRegistro.php" name="signUp" value="Sign Up">Sign Up</a> 
+    </div>
     </div>
   
 <?php include ("footer.php");?>  

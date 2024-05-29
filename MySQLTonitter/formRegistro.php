@@ -1,7 +1,7 @@
 <html>
 
 	<head>
-		<title> MySQLPruebas registroForm.php </title>
+		<title> MySQLTonitter registroForm.php </title>
         <meta charset="utf-8">
         <meta description="Basecon favicon">
         <link rel="shortcut icon" href="laXarxaFavicon.png">
@@ -30,8 +30,8 @@
  
     if (isset($_POST["submit"])) // Validaciones
     {
-        echo "<p> Entro en rutina de verificacion....... </p> ";
- //       print_r($_POST);
+//      echo "<p> Entro en rutina de verificacion....... </p> ";
+ //     print_r($_POST);
 
          if (!isset ($_POST["dni"]) || empty ($_POST["dni"])) 
             {$dniErr= " DNI requerido"; $error = true;

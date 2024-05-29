@@ -112,7 +112,7 @@
                 return $error;
             };
         
-        function creaSelEmpresas (){
+        function creaSelEmpresas (){ // para selector de empresa desplegable en registro 
             // arranca conexion a BD
                 $servername = "localhost";
                 $adminuser = "root";
@@ -146,7 +146,7 @@
                 return $error;
                 };    
 
-        function creaSelCPostal (){
+        function creaSelCPostal (){// para selector de municipio desplegable en registro
             // arranca conexion a BD
             $servername = "localhost";
             $adminuser = "root";
@@ -179,5 +179,6 @@
             }
             return $error;
         };    
+            
         
 ?>

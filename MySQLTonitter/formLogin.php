@@ -65,7 +65,7 @@
     
 <?php include ("header.php");?> 
     <div id="login">
-    <div class = "container mt-3 ws-grey" style ="background-color: gainsboro;">
+    <div class = "container mt-3">
             <form method="post">
             <div class="mb-3 mt-3">
                 <label>Usuario:</label>   

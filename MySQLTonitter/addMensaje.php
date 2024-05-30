@@ -8,17 +8,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
 
-    <style> <?//php include "laXarxa.css"; ?></style>
 </head>
 
 <body>
+
 <?php
 
+$title ="La Estafeta";
 include ("header.php");
+include_once "funciones.php";
 session_start();
 
-$pTitulo = $pDescripcion = $targetImage= "";
-$pTituloErr = $pDescripcionErr = $pImageErr = "";
+$pTitulo = $pContenido = $targetImage= "";
+$pTituloErr = $pContenidoErr = $pImageErr = "";
 
 if (isset($_POST['submit'])) { // validaciones
 
@@ -42,21 +44,21 @@ if (isset($_POST['submit'])) { // validaciones
             $pTitulo = $_POST["pTitulo"];
             $pTitulo = trim ($pTitulo);
             if (strlen($pTitulo)<10) {
-                $pTituloErr= " Titulo debe tener 10 o más caracteres"; 
+                $pTituloErr= "Titulo debe tener entre 10-30 caracteres"; 
                 $error = true; }
 
         };
 
-    if (!isset ($_POST["pDescripcion"]) || empty ($_POST["pDescripcion"])) 
+    if (!isset ($_POST["pContenido"]) || empty ($_POST["pContenido"])) 
         {
-            $pDescripcionErr= " Descripcion requerida"; 
+            $pContenidoErr= "Contenido requerida"; 
             $error = true;
         }
         else 
         {
-            $pDescripcion = $_POST["pDescripcion"];
-            if (strlen($pDescripcion)>500) {
-                $pTituloErr= " Descripcion debe tener 500 caracteres o menos"; 
+            $pContenido = $_POST["pContenido"];
+            if (strlen($pContenido)>500) {
+                $pTituloErr= "Contenido puede tener hasta 500 caracteres"; 
                 $error = true; }
         };
   
@@ -64,23 +66,15 @@ if (isset($_POST['submit'])) { // validaciones
         {
             $pImageErr= " Foto requerida"; 
             $error = true;
-    }
-    else 
-    {
-        
-
-    //    print_r($_POST);
-    //    echo "<br>";
-    //    print_r($_FILES);
-    //    echo "<br>";
-    
+        } else  {
+     
         $uploadOk = false;
     
         if (is_uploaded_file($_FILES['pImagen']['tmp_name'])) {
     
             $uploadOk = true;
              // chequea un formato válido
-            $targetDirectorio = "./laXarxaImagenes";
+            $targetDirectorio = "./imgMensajes";
 //            echo ($targetDirectorio);
             $targetFile = basename($_FILES["pImagen"]["name"]);
                 
@@ -136,14 +130,10 @@ if (isset($_POST['submit'])) { // validaciones
 
     if (!$error)  {
 //      echo "<p style='color:green;'> Todo parece correcto </p> ";
-        $nuevoPost = array( "titulo"=> $pTitulo, 
-                            "descripcion"=> $pDescripcion, 
-                            "imagen" => $targetImage,
-                            "comentario" => "");
 
-//      print_r  ($_SESSION["arrayPosts"] );                 
-        array_push ( $_SESSION["arrayPosts"], $nuevoPost); // añade el post
-//      print_r  ($_SESSION["arrayPosts"] );
+        $idUsuario = $_SESSION['idUsuario'];
+        $hoy = date("Y/m/d H:i:s");
+        $nuevoPost = alta_mensaje($idUsuario, $hoy, $pTitulo,$pContenido,$targetImage); // añade el post
 
         header("Location: laXarxaTonitter.php");
 
@@ -153,22 +143,34 @@ if (isset($_POST['submit'])) { // validaciones
   
 };
 
-    
-
 ?>
-<div>
-<form action = "" method="POST" enctype= "multipart/form-data">
-        <P> Introduzca Datos: </P>
-        Titulo : <input name="pTitulo" value = '<?=$pTitulo?>' placeholder="introducir el titulo del Post">
-        <span class="error" style="color:red;">* <?php echo $pTituloErr;?></span><br><br>
-        <textarea id="pDescripcion" name="pDescripcion" rows="20" cols="100" placeholder="introducir Descripción"><?=$pDescripcion?></textarea>
-        <span class="error" style="color:red;">* <?php echo $pDescripcionErr;?></span><br><br>
-        Imagen: <input type= "file" id="pImagen" name="pImagen" value = "<?=$targetImage?>" >
-        <span class="error" style="color:red;">* <?php echo $pImageErr;?></span><br><br>
-        <input type="hidden" name"MAX_FILE_SIZE" value="102400">
-        <input type="submit" name="submit" value="Aceptar">
+<div id="entradaDatos" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
+<form method="POST" action = "" enctype= "multipart/form-data">
+    <div class="form-floating mb-1 mt-1">
+        <input type="text" class="form-control" id="pTitulo" name="pTitulo" value = "<?=$pTitulo;?>" placeholder="introducir el titulo del Post">
+        <label for = "pTitulo" class="form-label">Titulo</label>
+        <span class="error" style="color:red;"><?="*".$pTituloErr;?></span>
+    </div>
+    <div class="form-floating mb-1 mt-1">
+        <textarea class="form-control" id="pContenido" name="pContenido" rows="25" cols="200" placeholder="introducir contenido"><?=$pContenido?></textarea>
+        <label for = "pContenido" class="form-label">SU MENSAJE</label>
+            <span class="error" style="color:red;"><?="*".$pContenidoErr;?></span>
+        </div>
+        <div class="form-floating mb-1 mt-1">
+            <input type= "file" class="form-control" id="pImagen" name="pImagen" value = "<?=$targetImage?>" >
+            <label for = "pImagen" class="form-label"> Desea incorporar una fotografia?</label>
+            <span class="error" style="color:red;"><?=$pImageErr;?></span>
+            <input type="hidden" name"MAX_FILE_SIZE" value="<?= $pImageSize;?>">
+        </div>
+        
+        <div class="form-floating mb-1 mt-1"> 
+            <input class="btn btn-primary"type="submit" name="submit" value="Aceptar">
+        </div>
 </form>
-<a class="btnStack" href = "laXarxaTonitter.php"> Cerrar editor </a>
+</div>
+
+<div class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
+    <a class="btnStack" href = "laXarxaTonitter.php"> Cerrar editor </a>
 </div>
 <?php include ("footer.php") ?>
 </body>

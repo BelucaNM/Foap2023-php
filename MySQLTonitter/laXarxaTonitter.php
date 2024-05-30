@@ -12,12 +12,13 @@
 <!-- >    <link rel="stylesheet" type="text/css" href="estilo.css" title="style" /> <-->
         
 </head>
-
 <body>
 
     <?php
-    $title ="La Xarxa";
+    $title ="Estas en LA XARXA";
     include ("header.php");
+    include_once "funciones.php";
+    
     session_start();
   
     if (isset($_SESSION["usuario"])) { // Identificación Correcta . En XarxaPrivada
@@ -62,7 +63,7 @@
     } else {
              
         $sql ="SELECT mensajes.id, mensajes.fecha, personas.nombre as nombre_user, personas.apellido as apellido_user,mensajes.titulo, 
-                mensajes.descripcion,mensajes.imagenURL 
+                mensajes.contenido,mensajes.imagenURL 
                 FROM mensajes 
                 JOIN
                 personas ON mensajes.idUser = personas.id ORDER BY fecha LIMIT 10";
@@ -78,7 +79,7 @@
                 $nombre_user = $row["nombre_user"];
                 $apellido_user = $row["apellido_user"];
                 $titulo = $row["titulo"];
-                $descripcion = $row["descripcion"];
+                $contenido = $row["contenido"];
                 $imagenURL = $row ["imagenURL"];
                 
     ?>
@@ -90,7 +91,7 @@
                     <h5><?= $fecha ?></h5>
                     <div class="container">
                         <img src="<?= $imagenURL ?>">
-                        <p><?= $descripcion ?></p>
+                        <p><?= $contenido ?></p>
                     </div>
                 </div>
     <?php

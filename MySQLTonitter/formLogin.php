@@ -27,14 +27,15 @@
                 $username = validate_input ($_POST['user']);
                 $password = validate_input ($_POST['pwd']);
 
-                $error = existe_User ($username, $password) ;
-                if (!$error) { // credenciales  correctas  , abre session y cookies
+                $id = existe_User ($username, $password) ;
+                if (!is_null($id)) { // credenciales  correctas  , abre session y cookies
                     session_start([
                         'use_only_cookies'=> 1,
                         'cookie_lifetime'=> 0,
                         'cookie_secure'=> 1,
                         'cookie_httponly'=> 1
                     ]);
+                    $_SESSION["idUsuario"] = $id;
                     $_SESSION["usuario"] = $_POST["user"]; // inicia session
                     $cookie_name ="remember_me[0]";
                         $cookie_value =$username;
@@ -55,7 +56,7 @@
                      
 
         if (isset($_GET['nuevoRegistro'])){ //vengo desde formRegistro 
-            $error = "Se ha dado de alta en APP. Por favor introduzca credenciales para acceso.";
+            $error = "Por favor introduzca credenciales para acceso.";
         };
         ?>
 

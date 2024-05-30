@@ -1,6 +1,5 @@
 <html>
-
-	<head>
+<head>
 		<title> MySQLTonitter registroForm.php </title>
         <meta charset="utf-8">
         <meta description="Basecon favicon">
@@ -8,21 +7,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
-
-  		
-    <? //php //include "estilo.css"; ?>
 	
-	</head>
-
-	
+</head>
 <body>
 
 	<?php 
     $title ="Registro en Xarxa";
     include ("header.php");
-       
-
-        include_once "funciones.php";
+    include_once "funciones.php";
 
         
          $nombreErr = $apellidosErr = $edadErr = $emailErr = "";
@@ -221,9 +213,6 @@
         <a class = "btn btn-lg btn-link" href = "formLogin.php?nuevoRegistro=1"> Salir de Registro </a>
     </div>
     
-        
-  
- <?php include ("footer.php")?> 
-
+    <?php include ("footer.php")?> 
 </body>
 </html>

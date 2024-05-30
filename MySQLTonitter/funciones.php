@@ -84,15 +84,17 @@ function existe_User($username, $password)
     $sql = "SELECT * FROM personas WHERE username LIKE '$username' AND password LIKE '$password';";
     echo $sql;
     $result = $conn->query($sql);
-    if ($result->num_rows !== 1) {
-        $error = true; // Error en validación. Reintroduzca datos
-    }
-    ;
+    $array = $result->fetch_assoc();
+    
+    if ($result->num_rows != 1) {
+        $id = NULL; // Error en validación. Reintroduzca datos
+    }else{
+        $id = $array['id'];
+    };
 
     include 'connClose_BD.php'; // cierra conexion a BD
-    return $error;
-}
-;
+    return $id;
+};
 
 function alta_personas($dni, $nombre, $apellido, $fechaNacimiento, $telefono, $idLocalidad, $idEmpresa, $email, $username, $password)
 {
@@ -124,8 +126,7 @@ function alta_personas($dni, $nombre, $apellido, $fechaNacimiento, $telefono, $i
     echo $error;
     include 'connClose_BD.php'; // cierra conexion a BD
     return $error;
-}
-;
+};
 
 function creaSelEmpresas()
 { // para selector de empresa desplegable en registro 
@@ -145,8 +146,7 @@ function creaSelEmpresas()
 
     include 'connClose_BD.php'; // cierra conexion a BD
     return $error;
-}
-;
+};
 
 function creaSelCPostal() {// para selector de municipio desplegable en registro
     include 'conn_BD.php'; // conexion a BD
@@ -172,5 +172,23 @@ function fdmaAfamd($fecha_dma){
     $fecha_amd = date("Y-m-d",$timestamp);
     return $fecha_amd;
 }; 
+
+function alta_mensaje($usuario, $date, $titulo, $contenido, $imagenURL)
+{
+
+    include 'conn_BD.php'; // conexion a BD
+    $error = false;
+    $sql = "INSERT INTO mensajes (id, fecha, idUser, titulo, contenido, imagenURL) 
+                        VALUES (NULL,'$date','$usuario','$titulo','$contenido','$imagenURL')";
+
+    
+    echo $sql;
+    $result = $conn->query($sql);
+    echo $result;
+    if ($result != 1) { $error = true; };
+    echo $error;
+    include 'connClose_BD.php'; // cierra conexion a BD
+    return $error;
+};
 
 ?>

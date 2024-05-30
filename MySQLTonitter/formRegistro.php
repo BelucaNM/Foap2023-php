@@ -18,6 +18,7 @@
 <body>
 
 	<?php 
+    $title ="Registro en Xarxa";
     include ("header.php");
        
 
@@ -25,10 +26,10 @@
 
         
          $nombreErr = $apellidosErr = $edadErr = $emailErr = "";
-         $usernameErr= $password1Err = $password2Err = "";
+         $usernameErr= $password1Err = $password2Err = $codigoPostalErr = $empresaErr ="";
          $dniErr =  $fNacimientoErr= "";
          $nombre = $apellidos = $fNacimiento = $email = $username= $password1 = $password2 = $password = "";
-         $dni =  $fNacimiento = $telefono = $empresa = $codigoPostal= "";
+         $dni =  $fNacimiento = $telefono = $idEmpresa = $idLocalidad= "";
          $error= false;
  
     if (isset($_POST["submit"])) // Validaciones
@@ -60,16 +61,12 @@
             $error = true;}
             else {
 // Codigo para campo fecha en HTML
-                  $fNacimiento = $_POST["fNacimiento"];
+                $fNacimiento = $_POST["fNacimiento"]; // formato d/m/a
     //          $dia_actual = date("Y-m-d");
     //          $edad_diff = date_diff(date_create($fNacimiento), date_create($dia_actual));
     //          $edad= $edad_diff->format('%y');
 
-
-    //            echo $fNacimiento; // formato d/m/a
-                list($d,$m,$y) = explode("/",$_POST['fNacimiento']);
-                $timestamp = mktime(0,0,0,$m,$d,$y);
-                $date = date("Y-m-d",$timestamp);
+                $date = fdmaAfamd($fNacimiento);
                 $dia_actual = date("Y-m-d");
                 $edad_diff = date_diff(date_create($date), date_create($dia_actual));
                 $edad= $edad_diff->format('%y');
@@ -84,8 +81,8 @@
             
 
         $telefono = $_POST["telefono"];
-        $empresa = $_POST["empresa"]; 
-        $codPostal = $_POST["codigoPostal"];       
+        $idEmpresa = $_POST["empresa"];
+        $idLocalidad = $_POST["codigoPostal"];           
        
         if (!isset ($_POST["email"]) || empty ($_POST["email"])) {
             $emailErr=  " Email requerido";
@@ -123,6 +120,7 @@
         if (!isset ($_POST["password2"]) || empty ($_POST["password2"])) 
             {$password2Err=  " Entrada requerida";$error = true;}
             else $password2 = $_POST["password2"];
+
         if (($password1 !== "") && ($password2 !== "") && ($password1 !== $password2))
             {$password2Err=  " Campos password no coinciden ";$error = true;}
 
@@ -131,12 +129,11 @@
         if (!$error)  {
             unset($_POST["submit"]);
             echo "<p style='color:green;'> Todo parece correcto </p> ";
-            $error = alta_personas ($dni, $nombre, $apellidos, $fNacimiento, $telefono, $codPostal, $empresa, $email, $username, $password1);
-            ;
+            $error = alta_personas ($dni, $nombre, $apellidos, $fNacimiento, $telefono, $idLocalidad, $idEmpresa, $email, $username, $password1);
             if (!$error) { // Alta de registro correcto 
                 echo "<p style='color:green;'> Alta de registro correcto </p> ";
                 $nombre = $apellidos = $fNacimiento = $email = $username= $password1 = $password2 = $password = "";
-                $dni =  $fNacimiento= "";
+                $dni =  "";
             } else {
                 echo "<p style='color:red;'> Error al dar de alta el registro </p> ";            
             };
@@ -165,47 +162,51 @@
             <label for ="fNacimiento" >Fecha Nacimiento</label>
             <span class="error" style="color:red;"><?="*".$fNacimientoErr;?></span>
         </div> 
-        <div class="form-floating mb-1 mt-1">
-            <label for ="empresa" class="form-label">Empresa</label>
-			<input class="form-select" list="empresas" id="empresa" name="empresa" placeholder="Seleccione empresa">
-            <datalist id="empresas">
+        <div class="mb-1 mt-1">
+            <label for ="empresa">Empresa</label>
+<!--		<select class="form-select" list="empresas" id="empresa" name="empresa" placeholder="Seleccione empresa">
+            <datalist id="empresas"> -->
+            <select class="form-select mb-1" id="empresa" name="empresa">
             <option value="">---------</option>
             <?php  $empresaErr = creaSelEmpresas();?>
-            </datalist>
-		    <span id="empresaError" style="color:red;"></span>
+            </select> 
+<!--        </datalist>  -->
+		    <span class="error" style="color:red;"><?="*".$empresaErr;?></span>
         </div>
-        <div class="form-floating mb-1 mt-1">      
-            <label for ="codigoPostal" class="form-label">Codigo Postal</label>
-			<input class="form-select" list="codigos" id="codigoPostal" name="codigoPostal" placeholder="Seleccione CodPos">
-            <datalist id="codigos">
+        <div class="mb-1 mt-1">      
+            <label for ="codigoPostal">Codigo Postal</label>
+<!--		<input class="form-select" list="codigos" id="codigoPostal" name="codigoPostal" placeholder="Seleccione CodPos">
+            <datalist id="codigos"> -->
+            <select class="form-select  mb-1" id="codigoPostal" name="codigoPostal">
 			<option value="">---------</option>
             <?php  $codigoPostalError = creaSelCPostal();?>
-			</datalist>
-		    <span id="codigoPostalError" style="color:red;"></span>
+            </select>
+<!--        </datalist>  -->
+		    <span class="error" style="color:red;"><?="*".$codigoPostalErr;?></span>
         </div>
-        <div class="form-floating mb-1 mt-1">
-            <label for ="telefono" class="form-label">Teléfono</label>
-			<input type="text" class="form-control" id="telefono" name="telefono" size="11" value="<?=$telefono;?>" placeholder="Introduzca teléfono">
-			<br><span id="telefonoError" style="color:red;"></span>
+        <div class="form-floating mb-1 mt-2">
+            <input type="text" class="form-control" id="telefono" name="telefono" size="11" value="<?=$telefono;?>" placeholder="Introduzca teléfono">
+			<label for ="telefono" class="form-label">Teléfono</label>
+            <span class="error" style="color:red;"></span>
         </div>
-        <div class="form-floating mb-1 mt-1">
-            <label for ="email" class="form-label">eMail</label>
+        <div class="form-floating mb-1 mt-2">
             <input type="text" class="form-control" id="email" name="email" size="30" value="<?=$email;?>" placeholder="Introduzca eMail">
+            <label for ="email" class="form-label">eMail</label>
             <span class="error" style="color:red;">* <?=$emailErr;?></span>
         </div> 
         <div class="form-floating mb-1 mt-1">
-            <label for ="username" class="form-label" >Username</label>
             <input type="text" class="form-control" id="username" name="username" size="30" value="<?=$username;?>" placeholder="Introduzca username"> 
+            <label for ="username" class="form-label" >Username</label>
             <span class="error" style="color:red;"><?="*".$usernameErr;?></span>
         </div>
         <div class="form-floating mb-1 mt-1">
-            <label for ="password1" class="form-label" >Password</label>
             <input type="password" class="form-control" id="password1" name="password1" value="<?=$password1;?>" placeholder="Introduzca password">
+            <label for ="password1" class="form-label" >Password</label>
             <span class="error" style="color:red;"><?="*".$password1Err;?></span>
         </div> 
         <div class="form-floating mb-1 mt-1">
-            <label for ="password2" class="form-label" >Reintroduzca password</label>    
             <input type="password" class="form-control" id="password2" name="password2" value="<?=$password2;?>" placeholder="ReIntroduzca password">
+            <label for ="password2" class="form-label" >Reintroduzca password</label>
             <span class="error" style="color:red;"><?="*".$password2Err;?></span>
         </div> 
         <div class="form-floating mb-1 mt-1">    

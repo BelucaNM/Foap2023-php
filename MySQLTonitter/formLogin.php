@@ -14,7 +14,7 @@
 
     <body>
     <?php
-      
+        $title ="Login en Xarxa";
         include_once "funciones.php";
         $user = $pwd = $sql = $error= $result = $checked= "";
 

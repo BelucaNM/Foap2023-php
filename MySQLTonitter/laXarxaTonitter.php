@@ -16,6 +16,7 @@
 <body>
 
     <?php
+    $title ="La Xarxa";
     include ("header.php");
     session_start();
   

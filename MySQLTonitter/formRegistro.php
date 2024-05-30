@@ -28,7 +28,7 @@
          $usernameErr= $password1Err = $password2Err = "";
          $dniErr =  $fNacimientoErr= "";
          $nombre = $apellidos = $fNacimiento = $email = $username= $password1 = $password2 = $password = "";
-         $dni =  $fNacimiento= "";
+         $dni =  $fNacimiento = $telefono = $empresa = $codigoPostal= "";
          $error= false;
  
     if (isset($_POST["submit"])) // Validaciones
@@ -55,17 +55,32 @@
             {$apellidosErr= " Apellidos requerido"; $error = true;}
             else $apellidos = validate_input($_POST["apellidos"]);
 
-        if (isset ($_POST["fNacimiento"])) {
+        if (!isset ($_POST["fNacimiento"]) || empty ($_POST["fNacimiento"])) {
+            $fNacimientoErr= " Fecha requerido"; 
+            $error = true;}
+            else {
+// Codigo para campo fecha en HTML
+                  $fNacimiento = $_POST["fNacimiento"];
+    //          $dia_actual = date("Y-m-d");
+    //          $edad_diff = date_diff(date_create($fNacimiento), date_create($dia_actual));
+    //          $edad= $edad_diff->format('%y');
 
-            $fNacimiento = $_POST["fNacimiento"];
-            $dia_actual = date("Y-m-d");
-            $edad_diff = date_diff(date_create($fNacimiento), date_create($dia_actual));
-            $edad= $edad_diff->format('%y');
 
-            if ($edad < 18)  {
-                    $edadErr=  " Usted tiene". $edad. " años. Debe ser mayor de 18 años";$error = true;
-            } else {
-                    $fNacimiento = $_POST["fNacimiento"];}}
+    //            echo $fNacimiento; // formato d/m/a
+                list($d,$m,$y) = explode("/",$_POST['fNacimiento']);
+                $timestamp = mktime(0,0,0,$m,$d,$y);
+                $date = date("Y-m-d",$timestamp);
+                $dia_actual = date("Y-m-d");
+                $edad_diff = date_diff(date_create($date), date_create($dia_actual));
+                $edad= $edad_diff->format('%y');
+    //            echo $edad;
+                if ($edad < 18)  {
+                        $fNacimientoErr=  " Usted tiene ". $edad. " años. Debe ser mayor de 18 años";
+                        $error = true;
+                } else {
+                        $fNacimiento = $_POST["fNacimiento"];
+                };
+                };
             
 
         $telefono = $_POST["telefono"];
@@ -128,74 +143,83 @@
         };
     }
     ?>
-    <div id="entradaDatos">
+    <div id="entradaDatos" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
         <form  method="post" action=""> 
-        <div>
-            <label> Dni:</label><input type="text" id = "dni" name="dni" value="<?=$dni;?>">
-            <span class="error" style="color:red;">* <?=$dniErr;?></span>
-        </div><br> 
-        <div>
-            <label >Nombre:</label><input type="text" name="nombre" value="<?=$nombre;?>">
-            <span class="error" style="color:red;">* <?=$nombreErr;?></span>
-        </div><br> 
-        <div>  
-            <label >Apellidos:</label><input type="text" name="apellidos" value="<?=$apellidos;?>">
-            <span class="error" style="color:red;">* <?=$apellidosErr;?></span>
-        </div><br>
-        <div>
-            <label >Fecha Nacimiento:</label>
-            <input type="date" name="fNacimiento" value="<?=$fNacimiento;?>">
-            <span class="error" style="color:red;">* <?=$fNacimientoErr;?></span>
-        </div><br> 
-        <div>
-            <label >Empresa: </label>
-			<select id="empresa" name="empresa">
+        <div class="form-floating mb-1 mt-1">
+            <input type="text" class="form-control" id = "dni" name="dni" value="<?=$dni;?>" placeholder="Introduzca Dni">
+            <label for = "dni">Dni</label>
+            <span class="error" style="color:red;"><?="*".$dniErr;?></span>
+        </div> 
+        <div class="form-floating mb-1 mt-1">
+            <input type="text" class="form-control" id="nombre" name="nombre" value="<?=$nombre;?>" placeholder="Introduzca nombre">
+            <label for = "nombre">Nombre</label>
+            <span class="error" style="color:red;"><?="*".$nombreErr;?></span>
+        </div>
+        <div class="form-floating mb-1 mt-1">  
+            <input type="text" class="form-control" id ="apellidos" name="apellidos" value="<?=$apellidos;?>" placeholder="Introduzca apellidos">
+            <label for = "apellidos">Apellidos</label>
+            <span class="error" style="color:red;"><?="*".$apellidosErr;?></span>
+        </div>
+        <div class="form-floating mb-1 mt-1">
+            <input type="text" class="date form-control" id="fNacimiento" name="fNacimiento" value="<?=$fNacimiento;?>" placeholder="Introduzca fecha">
+            <label for ="fNacimiento" >Fecha Nacimiento</label>
+            <span class="error" style="color:red;"><?="*".$fNacimientoErr;?></span>
+        </div> 
+        <div class="form-floating mb-1 mt-1">
+            <label for ="empresa" class="form-label">Empresa</label>
+			<input class="form-select" list="empresas" id="empresa" name="empresa" placeholder="Seleccione empresa">
+            <datalist id="empresas">
             <option value="">---------</option>
             <?php  $empresaErr = creaSelEmpresas();?>
-			</select>
-		    <span id="empresaError" style="color:red;"><?=$empresaErr;?></span>
-        </div><br>
-        <div>      
-            <label>Codigo Postal: </label>
-			<select id="lsel" name="codigoPostal">
+            </datalist>
+		    <span id="empresaError" style="color:red;"></span>
+        </div>
+        <div class="form-floating mb-1 mt-1">      
+            <label for ="codigoPostal" class="form-label">Codigo Postal</label>
+			<input class="form-select" list="codigos" id="codigoPostal" name="codigoPostal" placeholder="Seleccione CodPos">
+            <datalist id="codigos">
 			<option value="">---------</option>
             <?php  $codigoPostalError = creaSelCPostal();?>
-			</select>
+			</datalist>
 		    <span id="codigoPostalError" style="color:red;"></span>
-        </div><br>
-        <div>
-            <label>Teléfono:</label>
-			<input id="telefono" name="telefono" type="text" size="11"></label>
+        </div>
+        <div class="form-floating mb-1 mt-1">
+            <label for ="telefono" class="form-label">Teléfono</label>
+			<input type="text" class="form-control" id="telefono" name="telefono" size="11" value="<?=$telefono;?>" placeholder="Introduzca teléfono">
 			<br><span id="telefonoError" style="color:red;"></span>
-        </div><br>
-        <div>
-        <label >eMail:</label>
-            <input type="text" name="email" size="30" value="<?=$email;?>">
+        </div>
+        <div class="form-floating mb-1 mt-1">
+            <label for ="email" class="form-label">eMail</label>
+            <input type="text" class="form-control" id="email" name="email" size="30" value="<?=$email;?>" placeholder="Introduzca eMail">
             <span class="error" style="color:red;">* <?=$emailErr;?></span>
-        </div><br> 
-        <div>
-            <label >Username:</label>
-            <input type="text" name="username" size="30" value="<?=$username;?>"> 
-            <span class="error" style="color:red;">* <?=$usernameErr;?></span>
-        </div><br> 
-        <div>
-            <label >Password:</label>
-            <input type="password" name="password1" value="<?=$password1;?>">
-            <span class="error" style="color:red;">* <?=$password1Err;?></span>
-        </div><br> 
-        <div>
-            <label >Reintroduzca password:</label>    
-            <input type="password" name="password2" value="<?=$password2;?>">
-            <span class="error" style="color:red;">* <?=$password2Err;?></span>
-        </div><br> 
-        <div>    
-                <input type="submit" name= "submit" value="Submit"> 
+        </div> 
+        <div class="form-floating mb-1 mt-1">
+            <label for ="username" class="form-label" >Username</label>
+            <input type="text" class="form-control" id="username" name="username" size="30" value="<?=$username;?>" placeholder="Introduzca username"> 
+            <span class="error" style="color:red;"><?="*".$usernameErr;?></span>
+        </div>
+        <div class="form-floating mb-1 mt-1">
+            <label for ="password1" class="form-label" >Password</label>
+            <input type="password" class="form-control" id="password1" name="password1" value="<?=$password1;?>" placeholder="Introduzca password">
+            <span class="error" style="color:red;"><?="*".$password1Err;?></span>
+        </div> 
+        <div class="form-floating mb-1 mt-1">
+            <label for ="password2" class="form-label" >Reintroduzca password</label>    
+            <input type="password" class="form-control" id="password2" name="password2" value="<?=$password2;?>" placeholder="ReIntroduzca password">
+            <span class="error" style="color:red;"><?="*".$password2Err;?></span>
+        </div> 
+        <div class="form-floating mb-1 mt-1">    
+                <input class="btn btn-primary" type="submit" name= "submit" value="Submit"> 
         <!-- > value es el txt que muestra el boton. Es "Enviar" por defecto. 
                 El indice en el POST es el name <-->
-        </div><br>
+        </div>
         </form>
-        <a class="btnStack" href = "formLogin.php?nuevoRegistro=1"> Salir de Registro </a>
     </div>
+
+    <div class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
+        <a class = "btn btn-lg btn-link" href = "formLogin.php?nuevoRegistro=1"> Salir de Registro </a>
+    </div>
+    
         
   
  <?php include ("footer.php")?> 

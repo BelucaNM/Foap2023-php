@@ -66,16 +66,16 @@
     
 <?php include ("header.php");?> 
     
-    <div  id="login" class = "container mt-3 bg-light">
+    <div  id="login" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
             <form method="post">
-            <br><span><?=$error;?></span><br>
-            <div class="mb-3 mt-3">
-                <label>Usuario:</label>   
-                <input type="text" class="form-control" style="margin-top:5px!important" name="user" value= "<?=$user;?>"> 
+            <span><?=$error;?></span>
+            <div class="form-floating mb-3 mt-3">
+                <input type="text" class="form-control"  id= "user" name="user" value= "<?=$user;?>" placeholder="Introduzca usuario"> 
+                <label for ="user">Usuario</label> 
             </div> 
-            <div>
-                <label>Password:</label> 
-                <input type="text" class="form-control" style="margin-top:5px!important" name="pwd" value= "<?=$pwd;?>">   
+            <div class="form-floating mb-3 mt-3">
+                <input type="text" class="form-control" style="margin-top:5px!important" id="pwd" name="pwd" value= "<?=$pwd;?>"placeholder="Introduzca password" >   
+                <label for = "pwd">Password</label>
             </div> 
             <div class="form-check mb-3">
                 <label class="form-check-label">
@@ -91,7 +91,7 @@
             El indice en el POST es el name <-->
             </form>
     </div>
-    <div class = "container mt-3 bg-light">
+    <div class = "container mt-3 bg-light shadow-lg">
         <a class = "btn btn-lg btn-link"  href = "formRegistro.php" name="signUp" value="Sign Up">Sign Up</a> 
     </div>
     

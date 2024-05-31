@@ -191,4 +191,37 @@ function alta_mensaje($usuario, $date, $titulo, $contenido, $imagenURL)
     return $error;
 };
 
+function creaSelSubscripcion($idUser) {// para selector de posibles subscripciones desplegable 
+    include 'conn_BD.php'; // conexion a BD
+    $sql = "SELECT p.* FROM personas p JOIN subscripciones s ON p.id = s.siguiendoA WHERE s.subscriptor = '$idUser'"; // mis subscripciones
+    
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+//      echo "$result->num_rows";
+        while ($row = $result->fetch_assoc()) {
+            echo '<div id="div'.$row["id"].'" class="form-check"> ';
+            echo' <input class="form-check-input" type ="checkbox" id = "check'.$row["id"].'" name="option'.$row["id"].'" value="'.$row["id"].'" checked>';
+            echo '<label class="form-check-label">'. $row["nombre"] .' '.$row["apellido"].'</label></div>';
+        };
+        };
+
+    $sql = "SELECT p.* FROM personas p WHERE p.id != $idUser AND p.id NOT IN (
+    SELECT siguiendoA
+    FROM subscripciones
+    WHERE subscriptor = $idUser)";// no estoy subscrito
+
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+             echo '<div id="div'.$row["id"].'" class="form-check">';
+             echo'<input class="form-check-input"  type="checkbox" id = "check'.$row["id"].'" name="option'.$row["id"].'" value="'.$row["id"].'">';
+             echo '<label class="form-check-label">'. $row["nombre"] .' '.$row["apellido"].'</label></div>';
+            };
+        };
+
+    include 'connClose_BD.php'; // cierra conexion a BD
+    return "";
+    };
 ?>

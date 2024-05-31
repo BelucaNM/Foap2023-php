@@ -62,12 +62,8 @@ if (isset($_POST['submit'])) { // validaciones
                 $error = true; }
         };
   
-    if (!isset($_FILES['pImagen']) || empty ($_FILES['pImagen']["name"])) 
-        {
-            $pImageErr= " Foto requerida"; 
-            $error = true;
-        } else  {
-     
+    if (isset($_FILES['pImagen']) && !empty($_FILES['pImagen']["name"])){ // Foto no esrequerida
+           
         $uploadOk = false;
     
         if (is_uploaded_file($_FILES['pImagen']['tmp_name'])) {
@@ -129,16 +125,20 @@ if (isset($_POST['submit'])) { // validaciones
         };
 
     if (!$error)  {
-//      echo "<p style='color:green;'> Todo parece correcto </p> ";
-
+        unset($_POST["submit"]);
+        echo "<p style='color:green;'> Todo parece correcto </p> ";
+        
         $idUsuario = $_SESSION['idUsuario'];
         $hoy = date("Y/m/d H:i:s");
-        $nuevoPost = alta_mensaje($idUsuario, $hoy, $pTitulo,$pContenido,$targetImage); // añade el post
+        $error = alta_mensaje($idUsuario, $hoy, $pTitulo,$pContenido,$targetImage); // añade el post
+        if (!$error) { // Alta de registro correcto 
+            echo "<p style='color:green;'> Alta de registro correcto </p> ";
+            header("Location: laXarxaTonitter.php");
+        } else {
+            echo "<p style='color:red;'> Error al dar de alta el mensaje </p> ";            
+        };
+   
 
-        header("Location: laXarxaTonitter.php");
-
-    } else {
-        unset($_POST["submit"]);
     };
   
 };

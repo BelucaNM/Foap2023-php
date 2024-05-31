@@ -22,7 +22,8 @@
     session_start();
   
     if (isset($_SESSION["usuario"])) { // Identificación Correcta . En XarxaPrivada
-        $user =$_SESSION["usuario"]; 
+        $usuario =$_SESSION["usuario"];
+        $idUsuario =$_SESSION["usuario"]; 
 
     } else {
         echo "La sesión no esta abierta o no tengo todavia ningun resultado"  ;
@@ -30,19 +31,19 @@
     };
 
     ?>
-    <div id="laXarxaTonitter">
-        <p name=" usuario"><strong>HOLA <?=$user;?> !</strong></p>
+    <div  id="laXarxaTonitter" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg"></div>
+    <div class = "container mt-3 bg-light shadow-lg">
+        <p name=" usuario"><strong>HOLA <?=$usuario;?> !</strong></p>
         <a class="btnStack" href="logOut.php">Log Out</a>
         <a class="btnStack" href='buscarMensajes.php' > Buscar Mensajes </a> 
         <a class="btnStack" href='buscarPersonas.php' > Buscar Subscripciones </a> 
         <a class="btnStack" href='addMensaje.php' > Añadir una publicacion </a> 
-        <a class="btnStack" href='addSuscripcion.php' > Añadir una Subscripcion </a> 
+        <a class="btnStack" href='addSubscripcion.php' > Añadir una Subscripcion </a> 
         <a class="btnStack" href="llistatAmics.php">Listado de  Amics</a>
-        
-     
     </div>
     
-    <div class="lasCards"> 
+    
+    
     <?php  
     
     // arranca conexion a BD
@@ -83,16 +84,16 @@
                 $imagenURL = $row ["imagenURL"];
                 
     ?>
-    
-                <div class="card">
-                    <h2>POST</h2>
-                    <h4><b><?= $titulo ?></b></h4>
-                    <h4><b><?= $nombre_user." ".$apellido_user?></b></h4> 
-                    <h5><?= $fecha ?></h5>
-                    <div class="container">
-                        <img src="<?= $imagenURL ?>">
-                        <p><?= $contenido ?></p>
-                    </div>
+               <div  id="losMensajes" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
+                <div class="card-header"></div>
+                <div class="card-body bg-light">
+                    <img class="card-img-top" src="<?= $imagenURL?>" alt="Card Image">
+                    <h4 class = "card-title"><?= $titulo ?></h4>
+                    <p class= "card-text"><?= $nombre_user." ".$apellido_user?></p> 
+                    <p class= "card-text"><?= $fecha ?></p> 
+                    <p class= "card-text"><?= $contenido ?></p>                        
+                </div>
+                <div class="card-footer"></div>
                 </div>
     <?php
             };

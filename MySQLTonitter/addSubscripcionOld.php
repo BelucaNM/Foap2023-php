@@ -14,33 +14,22 @@
 
 <?php
 
-$title ="Subscripcion";
+$title ="Subscripciones";
 include ("header.php");
 include_once "funciones.php";
 session_start();
 $idUser = $_SESSION["idUsuario"]; 
-$subscripciones= obtener_subscripciones($idUser);
-$subscripcionErr="";
 
 if (isset($_POST['submit'])) { // validaciones
 
+    
 };
 
 ?>
 <div id="entradaDatos" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
 <form method="POST" action = "">
         <div class="form-check">      
-            
-<?php 
-    foreach ($subscripciones as $row) {
-    
-    echo '<div id="div'.$row["id"].'" class="form-check"> ';
-    echo' <input class="form-check-input" type ="checkbox" id = "check' .$row["id"]. '" name="option' .$row["id"]. '" value="' .$row["id"]. ' $row["estado"]>';
-    echo '<label class="form-check-label">'. $row["nombre"] .' '.$row["apellido"].'</label></div>';
-};
-
-
-?>
+            <?php $subscripcionErr = creaSelSubscripcion($idUser);?>
         </div>    
 		<span class="error" style="color:red;"><?=$subscripcionErr;?></span>
         <div class="form-floating mb-1 mt-3"> 

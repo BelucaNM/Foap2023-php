@@ -197,8 +197,10 @@ function creaSelSubscripcion($idUser) {// para selector de posibles subscripcion
     
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
+ //     echo "$result->num_rows";
+ //       print_r($result);
         // output data of each row
-//      echo "$result->num_rows";
+      
         while ($row = $result->fetch_assoc()) {
             echo '<div id="div'.$row["id"].'" class="form-check"> ';
             echo' <input class="form-check-input" type ="checkbox" id = "check'.$row["id"].'" name="option'.$row["id"].'" value="'.$row["id"].'" checked>';
@@ -224,4 +226,50 @@ function creaSelSubscripcion($idUser) {// para selector de posibles subscripcion
     include 'connClose_BD.php'; // cierra conexion a BD
     return "";
     };
+
+function obtener_mensajes($idUser) {
+
+    include 'conn_BD.php'; // conexion a BD
+   
+             
+    $sql ="SELECT mensajes.id, mensajes.fecha, personas.nombre as nombre_user, personas.apellido as apellido_user,mensajes.titulo, 
+                mensajes.contenido,mensajes.imagenURL 
+                FROM mensajes 
+                JOIN
+                personas ON mensajes.idUser = personas.id ORDER BY fecha DESC LIMIT 10";
+
+    $result = $conn->query($sql);
+    include 'connClose_BD.php'; // cierra conexion a BD
+    return $result;
+
+    };
+function obtener_subscripciones($idUser) {// para selector subscripciones desplegable 
+        include 'conn_BD.php'; // conexion a BD
+        $arrayResult = array();
+        $sql = "SELECT p.* FROM personas p JOIN subscripciones s ON p.id = s.siguiendoA WHERE s.subscriptor = '$idUser'"; // mis subscripciones
+        
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+
+            while ($row = $result->fetch_assoc()) {
+                array_push($arrayResult, array('id'=>$row["id"], 'nombre'=>$row["nombre"], 'estado'=>'checked'));
+            };
+        };
+    
+        $sql = "SELECT p.* FROM personas p WHERE p.id != $idUser AND p.id NOT IN (
+        SELECT siguiendoA
+        FROM subscripciones
+        WHERE subscriptor = $idUser)";// no estoy subscrito
+    
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while ($row = $result->fetch_assoc()) {
+                array_push($arrayResult, array('id'=>$row["id"], 'nombre'=>$row["nombre"], 'estado'=>''));
+            };
+        };
+    
+        include 'connClose_BD.php'; // cierra conexion a BD
+        return $arrayResult;
+        };
 ?>

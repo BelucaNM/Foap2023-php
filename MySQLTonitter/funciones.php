@@ -73,11 +73,28 @@ function is_valid_DNI($str)
     }
     ;
     return $is_valid;
+};
+
+function busca_idPersona_porUser ($user){
+    include 'conn_BD.php'; // conexion a BD
+    $error = false;
+    $sql = "SELECT id FROM personas WHERE username = '$user';";
+    
+    $result = $conn->query($sql);
+    $array = $result->fetch_assoc();
+    
+    if ($result->num_rows != 1) {
+        $id = null; // Error en validación. Reintroduzca datos
+    }else{
+        $id = $array['id'];
+    };
+
+    include 'connClose_BD.php'; // cierra conexion a BD
+    return $id;
 }
-;
 
 function existe_User($username, $password)
-{ // sanear datos
+{ // para login
 
     include 'conn_BD.php'; // conexion a BD
     $error = false;
@@ -227,35 +244,48 @@ function creaSelSubscripcion($idUser) {// para selector de posibles subscripcion
     return "";
     };
 
-function obtener_mensajes($idUser) {
+function obtener_mensajes($arrayUsers) {
 
-    include 'conn_BD.php'; // conexion a BD
-   
-             
-    $sql ="SELECT mensajes.id, mensajes.fecha, personas.nombre as nombre_user, personas.apellido as apellido_user,mensajes.titulo, 
-                mensajes.contenido,mensajes.imagenURL 
-                FROM mensajes 
-                JOIN
-                personas ON mensajes.idUser = personas.id ORDER BY fecha DESC LIMIT 10";
-
-    $result = $conn->query($sql);
-    include 'connClose_BD.php'; // cierra conexion a BD
-    return $result;
-
+    if (!empty($arrayUsers))  {
+    
+    //    print_r($arrayUsers);
+        include 'conn_BD.php'; // conexion a BD
+        $sql ="SELECT mensajes.id, mensajes.fecha, personas.nombre as nombre_user, personas.apellido as apellido_user,mensajes.titulo, 
+                    mensajes.contenido,mensajes.imagenURL 
+                    FROM mensajes 
+                    JOIN
+                    personas ON mensajes.idUser = personas.id 
+                    WHERE personas.id IN (".implode(',',$arrayUsers).") ORDER BY mensajes.fecha DESC";
+    //    print ($sql);
+        $result = $conn->query($sql);
+        include 'connClose_BD.php'; // cierra conexion a BD
+        return $result;
+    }else{ 
+        return null;
     };
-function obtener_subscripciones($idUser) {// para selector subscripciones desplegable 
+};
+function obtener_subscripciones($idUser) {// subscripciones 
         include 'conn_BD.php'; // conexion a BD
         $arrayResult = array();
+        $estado ="checked";
         $sql = "SELECT p.* FROM personas p JOIN subscripciones s ON p.id = s.siguiendoA WHERE s.subscriptor = '$idUser'"; // mis subscripciones
         
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
 
             while ($row = $result->fetch_assoc()) {
-                array_push($arrayResult, array('id'=>$row["id"], 'nombre'=>$row["nombre"], 'estado'=>'checked'));
-            };
+                $arrayResult[]= Array ("id" => $row['id'],"nombre"=>$row['nombre'],"apellido"=>$row['apellido'],"estado"=>$estado,);
+           };
         };
-    
+        
+        include 'connClose_BD.php'; // cierra conexion a BD
+        return $arrayResult;
+    };
+
+function obtener_target($idUser) {// para selector subscripciones target 
+        include 'conn_BD.php'; // conexion a BD
+        $arrayResult = array(); 
+
         $sql = "SELECT p.* FROM personas p WHERE p.id != $idUser AND p.id NOT IN (
         SELECT siguiendoA
         FROM subscripciones
@@ -263,9 +293,9 @@ function obtener_subscripciones($idUser) {// para selector subscripciones desple
     
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-            // output data of each row
+            
             while ($row = $result->fetch_assoc()) {
-                array_push($arrayResult, array('id'=>$row["id"], 'nombre'=>$row["nombre"], 'estado'=>''));
+                $arrayResult[]= Array('id'=>$row["id"],'nombre'=>$row["nombre"],'apellido'=>$row["apellido"],'estado'=>"");
             };
         };
     

@@ -120,7 +120,7 @@ function alta_personas($dni, $nombre, $apellido, $fechaNacimiento, $telefono, $i
     $error = false;
     $dateYMD = fdmaAfamd($fechaNacimiento);
 
-    $sql = "INSERT INTO personas (id, dni, nombre, apellido, fechaNacimiento, telefono, idLocalidad, idEmpresa, email, username, password) 
+    $sql = "INSERT IGNORE INTO personas (id, dni, nombre, apellido, fechaNacimiento, telefono, idLocalidad, idEmpresa, email, username, password) 
                         VALUES (NULL,'$dni','$nombre','$apellido','$dateYMD','$telefono',";
 
     if ($idLocalidad == "") {
@@ -137,7 +137,8 @@ function alta_personas($dni, $nombre, $apellido, $fechaNacimiento, $telefono, $i
     $sql .= "'$email','$username','$password');";
 
     echo $sql;
-    $result = $conn->query($sql);
+    $result= $conn->query($sql);
+//    $result= mysqli_query($conn,$sql); 
     echo $result;
     if ($result != 1) { $error = true; };
     echo $error;
@@ -209,6 +210,10 @@ function alta_mensaje($usuario, $date, $titulo, $contenido, $imagenURL)
 };
 
 function creaSelSubscripcion($idUser) {// para selector de posibles subscripciones desplegable 
+
+// ahora esta funcion no se usa 
+// la seleccion se hace en la funcion php obtener subscripciones
+// y la presentación se hace dentro del html
     include 'conn_BD.php'; // conexion a BD
     $sql = "SELECT p.* FROM personas p JOIN subscripciones s ON p.id = s.siguiendoA WHERE s.subscriptor = '$idUser'"; // mis subscripciones
     
@@ -274,7 +279,7 @@ function obtener_subscripciones($idUser) {// subscripciones
         if ($result->num_rows > 0) {
 
             while ($row = $result->fetch_assoc()) {
-                $arrayResult[]= Array ("id" => $row['id'],"nombre"=>$row['nombre'],"apellido"=>$row['apellido'],"estado"=>$estado,);
+                $arrayResult[]= Array ("id" => $row['id'],"nombre"=>$row['nombre'],"apellido"=>$row['apellido'],"estado"=>$estado,"existe"=>1);
            };
         };
         
@@ -295,7 +300,7 @@ function obtener_target($idUser) {// para selector subscripciones target
         if ($result->num_rows > 0) {
             
             while ($row = $result->fetch_assoc()) {
-                $arrayResult[]= Array('id'=>$row["id"],'nombre'=>$row["nombre"],'apellido'=>$row["apellido"],'estado'=>"");
+                $arrayResult[]= Array('id'=>$row["id"],'nombre'=>$row["nombre"],'apellido'=>$row["apellido"],'estado'=>"","existe"=>0);
             };
         };
     

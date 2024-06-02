@@ -1,48 +1,113 @@
-function subscripciones (){
-    let $idSubscriptor = $_SESSION["idUsuario"];
-    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    print(checkboxes);
-    checkboxes.forEach(function(){
-        var $idSubscripto = this.value;
-        
-        var $existe_dupla = consultaDupla ($idSubscriptor, $idSubscripto); // 3 estados :existe (true), inactiva (null), no existe(false)
-        
-        if((this.checked) && (isNull($existe_dupla))) { 
-            activ_dupla($idSubscriptor, $idSubscripto);
-        } else if((this.checked) && !($existe_dupla))  { 
-            crea_dupla($idSubscriptor, $idSubscripto)
-        }else { if(!(this.checked)&& ($existe_dupla)) { 
-            desact_dupla($idSubscriptor, $idSubscripto)};
-        };      
-    });
-};
-
-function consultaDupla($idSubscriptor, $idSubscripto){
-    fetch('mySqlQueryDuplas.php')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('No hay duplas');
+function grabaSubscripciones ($idUser){
+    console.log ( "Entro en grabaSubscripciones.js")
+    let $idSubscriptor = $idUser;
+    const checkboxes = document.getElementsByName("checkBox");
+    console.log(checkboxes);
+    
+    checkboxes.forEach(item => function(item) {
+        let $idsiguiendoA = item.value
+        let $existe_dupla = item.previousElementSibling.innerHTML 
+        let $activa = item.checked
+        const update = {
+            subscriptor: $idSubscriptor,
+            siguiendoA: $idsiguiendoA,
+            activa: $activa,
+            existe_dupla: $existe_dupla
             }
-        return response.json();
-        })
-    .then (data => {
-        duplas = data; 
-        console.log("duplas", duplas);
-        duplas.forEach(dupla => {
+        
 
-            console.log ("dupla es ", dupla);
-            
-        })
-        })
-
-    .catch(error => {
-        console.error('Error al recibir la lista de duplas:', error);
+        const options = {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(update),
+            };
+        
+        const enviar = async () => {
+                const data = {
+                    subscriptor: $idSubscriptor,
+                    siguiendoA: $idsiguiendoA,
+                    activa: $activa,
+                    existe_dupla: $existe_dupla
+                    };
+                try {
+                    let response = await fetch('updateSubscripciones.php', {
+                        method: "POST",
+                        cache: 'no-cache',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(data)
+                    });
+                    if (response.ok) {
+                        console.log(response);
+                        const rta2 = await response.json();
+                        console.log(rta2);
+                    }
+                    else {
+                        throw new Error(response.statusText);
+                    }
+                } catch (err) {
+                    console.log("Error al realizar la petición AJAX: " + err.message);
+                }
+            }
+        enviar();
         });
     };
-    
-function activ_dupla(idSubscriptor, idSubscripto){
 
-};
-function desact_dupla(idSubscriptor, idSubscripto){
+function saluda(user){
+console.log("Hola" + user);
+console.log(" estoy en pruebas ");
+let $idSubscriptor = user;
+console.log ($idSubscriptor);
+const checkboxes = document.getElementsByName("checkBox");
+item = checkboxes[0];
+    let $idsiguiendoA = item.value
+    let $existe_dupla = item.previousElementSibling.innerHTML 
+    let $activa = item.checked
+    const update = {
+        subscriptor: $idSubscriptor,
+        siguiendoA: $idsiguiendoA,
+        activa: $activa,
+        existe_dupla: $existe_dupla
+        }
+    
+
+    const options = {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(update),
+        };
+    
+    const enviar = async () => {
+            const data = {
+                subscriptor: $idSubscriptor,
+                siguiendoA: $idsiguiendoA,
+                activa: $activa,
+                existe_dupla: $existe_dupla
+                };
+            try {
+                let response = await fetch('updateSubscripciones.php', {
+                    method: "POST",
+                    cache: 'no-cache',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+                if (response.ok) {
+                    console.log(response);
+                    const rta2 = await response.json();
+                    console.log(rta2);
+                }
+                else {
+                    throw new Error(response.statusText);
+                }
+            } catch (err) {
+                console.log("Error al realizar la petición AJAX: " + err.message);
+            }
+        }
+    enviar();
+
+
 
 };

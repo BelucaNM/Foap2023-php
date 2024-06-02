@@ -62,6 +62,9 @@
                 <input class="btn btn-primary" type="submit" name="signIn" value="Sign In">
             </div>
             </form>
+            <div class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
+                <a class="btnStack" href = "laXarxaTonitter.php"> Cerrar Buscador </a>
+            </div>
     
     <?php  
     

@@ -29,6 +29,11 @@ $subscripcionErr="";
 
 
 ?>
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+
+
 <div id="entradaDatos" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
 <p name=" usuario"><strong>HOLA <?=$usuario;?>. Aqui puedes actualizar tus subscripciones! </strong></p>
 <form method="" action = "">
@@ -50,14 +55,18 @@ $subscripcionErr="";
         </div>    
 		<span class="error" style="color:red;"><?=$subscripcionErr;?></span>
         <div class="form-floating mb-1 mt-3"> 
-            <input class="btn btn-primary"type="button" name="submit" value="Aceptar"  onclick="javascript:grabaSubscripciones(<?=$idUser;?>);">
+            <input class="btn btn-primary"type="button" name="submit" value="Aceptar"  onclick="javascript:upSubscripciones(<?=$idUser;?>);">
 <!-- el input debe ser de tipo button para que no refresque la pagina -->
         </div>
 </form>
 </div>
 
+
 <div class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
     <a class="btnStack" href = "laXarxaTonitter.php"> Cerrar editor </a>
+</div>
+</div>
+<div class="col-3"></div>
 </div>
 <?php include ("footer.php") ?>
 

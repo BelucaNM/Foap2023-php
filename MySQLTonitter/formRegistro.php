@@ -132,6 +132,9 @@
         };
     }
     ?>
+    <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
     <div id="entradaDatos" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
         <form  method="post" action=""> 
         <div class="form-floating mb-1 mt-1">
@@ -212,7 +215,9 @@
     <div class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
         <a class = "btn btn-lg btn-link" href = "formLogin.php?nuevoRegistro=1"> Salir de Registro </a>
     </div>
-    
+    </div>
+    <div class="col-2"></div>
+    </div>
     <?php include ("footer.php")?> 
 </body>
 </html>

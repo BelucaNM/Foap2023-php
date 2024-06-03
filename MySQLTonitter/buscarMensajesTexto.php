@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title> La Xarxa Tonitter </title>
+    <title> Buscar mensajes de un usuario </title>
     <meta charset="utf-8">
     <meta description="Basecon favicon">
     <link rel="shortcut icon" href=".\imgCodigo\laXarxaFavicon.png">
@@ -15,11 +15,12 @@
 <body>
 
     <?php
-    $title ="Estás en LA XARXA";
+    $title ="Busqueda de mensajes";
     include ("header.php");
     include_once "funciones.php";
     
     session_start();
+    $error= $texto= $mensajes = "";
   
     if (isset($_SESSION["usuario"])) { // Identificación Correcta . En XarxaPrivada
         $usuario =$_SESSION["usuario"];
@@ -30,38 +31,46 @@
         header ("location:formLogin.php ");
     };
     
-    $usuarioYsubs = [$idUsuario]; // se mostraran los mensajes de usuario logeado
-    $usersArray = obtener_subscripciones($idUsuario); // devuelve las subscripciones existentes del usuario logeado 
-    //ver formato del array en funcion obtener_; hay que obtener los id's
-    // 
-    foreach ($usersArray as $valor) { // hay que seleccionar las subscripciones activas
-        if ($valor['activa'] == 1) {$usuarioYsubs[] = $valor['id'];}
-    }
-    $mensajes = obtener_mensajes($usuarioYsubs); // busca mensajes del user y de sus subscriptores
 
+    if (($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST['signIn'])) { // verificar entrada por formulario
+    
+        if (empty($_POST["texto"]))  {
+            $error= "Introduzca Texto";
+        } else {
+            $texto = $_POST["texto"];
+            $mensajes = busca_mensajes_porTexto($texto);
+            if (is_null($mensajes)) {
+                $error = " No hay mensajes con este texto ";
+            
+            };
+        };
+    };
     ?>
     <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
 
-    <div  id="laXarxaTonitter" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
+<!--    <div  id="laXarxa" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg"> -->
     <p name=" usuario"><strong>HOLA <?=$usuario;?> !</strong></p>
-    <div class = "btn-group btn-group-sm">        
-        <a type="button" class="btn btn-dark" href="logOut.php">Log Out</a>
-        <a type="button" class="btn btn-light" href='addMensaje.php' >Añadir Mensajes</a>
-        <a type="button" class="btn btn-light" href='addSubscripcion.php' >Añadir/borrar Subscripcion</a>  
+    <div  id="buscarMensajes" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
+            <form method="post" ref="">
+            <span><?=$error;?></span>
+            <div class="form-floating mb-3 mt-3">
+                <input type="text" class="form-control"  id= "texto" name="texto" value= "<?=$texto;?>" placeholder="Introduzca usuario"> 
+                <label for ="texto">Texto</label> 
+            </div> 
+            <div>
+                <input class="btn btn-primary" type="submit" name="signIn" value="Buscar">
+            </div>
+            </form>
+            <div class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
+                <a class="btnStack" href = "laXarxaTonitter.php"> Cerrar Buscador </a>
+            </div>
     </div>
-    <div class = "btn-group btn-group-sm">
-        <a type="button" class="btn btn-light" href='buscarMensajesTexto.php' >Buscar: Mensajes</a> 
-        <a type="button" class="btn btn-light" href='buscarPersonasTexto.php' >Personas</a>
-        <a type="button" class="btn btn-light" href='buscarMensajesUsuario.php' >Mensajes/Persona</a>  
-    </div>
-    </div>
-
     
     <?php  
     
-    if ($mensajes->num_rows > 0) {
+    if (property_exists($mensajes,'num_rows')&& ($mensajes->num_rows > 0)) {
         // output data of each row
             while($row = $mensajes->fetch_assoc()) {
                 
@@ -79,13 +88,16 @@
                 </div>
     <?php
             };
+        } else {
+            $error = " No se han encontrado mensajes con este texto";
+            unset($_POST["signIn"]);   
         };
     
     ?>
-    </div>
+    
     </div>
     <div class="col-3"></div>
     </div>
-    <?php include ("footer.php"); ?>
+    <?php include ("footer.php");?>
 </body>
 </html>

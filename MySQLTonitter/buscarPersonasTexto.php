@@ -15,12 +15,13 @@
 <body>
 
     <?php
-    $title ="Busqueda de mensajes";
+    $title ="Busqueda de Personas";
     include ("header.php");
     include_once "funciones.php";
     
     session_start();
-    $error= $user= $mensajes = "";
+    $error= $texto= "";
+    $usuarios = [];
   
     if (isset($_SESSION["usuario"])) { // Identificación Correcta . En XarxaPrivada
         $usuario =$_SESSION["usuario"];
@@ -34,16 +35,14 @@
 
     if (($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST['signIn'])) { // verificar entrada por formulario
     
-        if (empty($_POST["user"]))  {
-            $error= "Introduzca Usuario";
+        if (empty($_POST["texto"]))  {
+            $error= "Introduzca Texto";
         } else {
-            $user = $_POST["user"];
-            $identificador = busca_idPersona_porUser($user);
-            if (is_null($identificador)) {
-                $error = " No hay mensajes desde este perfil ";
-            }else{
-                $usuarioYsubs[] = $identificador; // se mostraran los mensajes de usuario logeado
-                $mensajes = obtener_mensajes($usuarioYsubs); // busca mensajes del user 
+            $texto = $_POST["texto"];
+            $usuarios = busca_usuarios_porTexto($texto);
+            if (is_null($usuarios)) {
+                $error = " No hay usuarios con este texto en su nombre";
+            
             };
         };
     };
@@ -58,8 +57,8 @@
             <form method="post" ref="">
             <span><?=$error;?></span>
             <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control"  id= "user" name="user" value= "<?=$user;?>" placeholder="Introduzca usuario"> 
-                <label for ="user">Usuario</label> 
+                <input type="text" class="form-control"  id= "texto" name="texto" value= "<?=$texto;?>" placeholder="Introduzca usuario"> 
+                <label for ="texto">Texto</label> 
             </div> 
             <div>
                 <input class="btn btn-primary" type="submit" name="signIn" value="Buscar">
@@ -72,26 +71,25 @@
     
     <?php  
     
-    if (property_exists($mensajes,'num_rows')&& ($mensajes->num_rows > 0)) {
+    if (count($usuarios) != 0) {
         // output data of each row
-            while($row = $mensajes->fetch_assoc()) {
+            foreach($usuarios as $row) {
                 
     ?>
-               <div  id="soyMensaje" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
+               <div  id="soyUsuario" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
                 <div class="card-header"></div>
                 <div class="card-body bg-light">
-                    <img class="card-img-top" src="<?= $row["imagenURL"];?>" alt="<?= $row["imagenURL"];?>">
-                    <h4 class = "card-title"><?= $row["titulo"]; ?></h4>
-                    <p class  = "card-text"><?= $row["nombre_user"]." ".$row["apellido_user"];?></p> 
-                    <p class  = "card-text"><?= $row["fecha"]; ?></p> 
-                    <p class  = "card-text"><?= $row["contenido"];?></p>                        
+<!-- >              <img class="card-img-top" src="<?= $row["imagenURL"];?>" alt="<?= $row["imagenURL"];?>"> <-->
+                    <h6 class = "card-title"></h6>
+                    <p class  = "card-text"><?= $row["nombre"]." ".$row["apellido"];?></p> 
+                                          
                 </div>
-                <div class="card-footer"></div>
+                <div class="card-footer">Usuario número :<?= $row["id"]; ?></div>
                 </div>
     <?php
             };
         } else {
-            $error = " No se han encontrado mensajes de este usuario";
+            $error = " No se han encontrado usuarios con este texto";
             unset($_POST["signIn"]);   
         };
     

@@ -15,7 +15,7 @@ if ($conn->connect_error) {// Check connection
 }else{
     $sqlTodas ="";
     $update = $_POST['data'];
-/*    
+   
     for ($i = 0; $i<count($update); $i++) {
         
         $subscriptor = $update[$i]['subscriptor'];
@@ -35,21 +35,24 @@ if ($conn->connect_error) {// Check connection
         };
         
         if (($activa) || ($existe_dupla)){
-                $sqlTodas .= $sql . ";";
+            $sqlTodas .= $sql . ";";
         };
         
+        
     };
-*/
+  
+/*
     $sqlTodas =" UPDATE subscripciones SET activa = 1  WHERE  subscriptor = 4 and siguiendoA = 5;
     UPDATE subscripciones SET activa = 1  WHERE  subscriptor = 4 and siguiendoA = 7; 
     UPDATE subscripciones SET activa = 1  WHERE  subscriptor = 4 and siguiendoA = 1; ";  
-  
+    
+    */ 
     if ($conn->multi_query($sqlTodas) === TRUE) {
         echo json_encode("New records created successfully");
     } else {
         echo json_encode("Error");
     };
-    $conn->close(); // NO SE SI PASA POR AQUI
-    
+
+    $conn->close(); //     
     
 };

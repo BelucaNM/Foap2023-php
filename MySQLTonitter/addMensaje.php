@@ -144,6 +144,10 @@ if (isset($_POST['submit'])) { // validaciones
 };
 
 ?>
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+
 <div id="entradaDatos" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
 <form method="POST" action = "" enctype= "multipart/form-data">
     <div class="form-floating mb-1 mt-1">
@@ -171,6 +175,10 @@ if (isset($_POST['submit'])) { // validaciones
 
 <div class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
     <a class="btnStack" href = "laXarxaTonitter.php"> Cerrar editor </a>
+</div>
+
+</div>
+<div class="col-3"></div>
 </div>
 <?php include ("footer.php") ?>
 </body>

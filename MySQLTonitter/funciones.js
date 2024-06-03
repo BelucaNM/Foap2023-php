@@ -1,4 +1,4 @@
-function grabaSubscripciones (user){
+function grabaSubscripciones (user){ 
     console.log ( "Entro en grabaSubscripciones.js")
     const data = {"data":[
         {
@@ -117,7 +117,7 @@ function upSubscripciones(user){
                 const response = await fetch('updateSubscripciones.php', options);
                 if (response.ok) { // Verificar si la respuesta es exitosa
                     const resultado = await response.json();
-                    console.log(result);}
+                    console.log(resultado);}
                 else {throw new Error(response.statusText);}
             } catch (error) {
                 console.log("Error al realizar la petición AJAX: " + error.message);

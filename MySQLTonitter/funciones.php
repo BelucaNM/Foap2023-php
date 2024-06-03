@@ -307,4 +307,50 @@ function obtener_target($idUser) {// para selector subscripciones target
         
         include 'connClose_BD.php'; // cierra conexion a BD
         return $arrayResult;
+    };
+
+function  busca_mensajes_porTexto($texto){
+    if ($texto != "") {
+        include 'conn_BD.php'; // conexion a BD
+        $sql ="SELECT   mensajes.id, mensajes.fecha, personas.nombre as nombre_user, personas.apellido as apellido_user,mensajes.titulo, 
+                    mensajes.contenido,mensajes.imagenURL 
+                    FROM mensajes 
+                    JOIN
+                    personas ON mensajes.idUser = personas.id 
+                    WHERE 1 ";
+                
+        foreach(explode(' ',$texto) as $termino){
+            $sql.=" AND mensajes.contenido LIKE '%".$termino."%'";
+            };
+                
+        $sql.= " ORDER BY mensajes.fecha DESC";
+        $result = $conn->query($sql);
+        include 'connClose_BD.php'; // cierra conexion a BD
+            return $result;
+        }else{ 
+            return null;
         };
+    };
+    function busca_usuarios_porTexto($texto) {
+        include 'conn_BD.php'; // conexion a BD
+        $arrayResult = array(); 
+
+        $sql = "SELECT p.* FROM personas p WHERE 1 ";
+        foreach(explode(' ',$texto) as $termino){
+            $sql.=" AND p.nombre LIKE '%".$termino."%'";
+            };
+            
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            
+            while ($row = $result->fetch_assoc()) {
+                $arrayResult[]= Array('id'=>$row["id"],'nombre'=>$row["nombre"],'apellido'=>$row["apellido"]);
+            };
+            
+        };
+        
+        include 'connClose_BD.php'; // cierra conexion a BD
+        return $arrayResult;
+    };
+
+

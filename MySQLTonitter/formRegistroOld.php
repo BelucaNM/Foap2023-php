@@ -128,6 +128,9 @@
         };
     }
     ?>
+    <div class="row">
+    <div class="col"></div>
+    <div class="col">
     <div id="entradaDatos">
         <form  method="post" action=""> 
         <div>
@@ -196,7 +199,9 @@
         </form>
         <a class="btnStack" href = "formLogin.php?nuevoRegistro=1"> Salir de Registro </a>
     </div>
-        
+    </div>
+    <div class="col"></div>
+</div>      
   
  <?php include ("footer.php")?> 
 

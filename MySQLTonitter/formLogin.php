@@ -66,8 +66,10 @@
 
     
 <?php include ("header.php");?> 
-    
-    <div  id="login" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
+    <div class="row">
+    <div class="col"></div>
+    <div class="col">
+    <div  id="login" class = " container pt-3 pb-3 mt-3 bg-light shadow-lg">
             <form method="post">
             <span><?=$error;?></span>
             <div class="form-floating mb-3 mt-3">
@@ -92,11 +94,13 @@
             El indice en el POST es el name <-->
             </form>
     </div>
-    <div class = "container mt-3 bg-light shadow-lg">
+        <div class = "container mt-3 bg-light shadow-lg">
         <a class = "btn btn-lg btn-link"  href = "formRegistro.php" name="signUp" value="Sign Up">Sign Up</a> 
     </div>
-    
     </div>
+    
+    <div class="col"></div>
+</div>
   
 <?php include ("footer.php");?>  
 

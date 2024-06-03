@@ -272,19 +272,19 @@ function obtener_mensajes($arrayUsers) {
 function obtener_subscripciones($idUser) {// subscripciones 
         include 'conn_BD.php'; // conexion a BD
         $arrayResult = array();
-        $estado ="checked";
-        $sql = "SELECT p.* FROM personas p JOIN subscripciones s ON p.id = s.siguiendoA WHERE s.subscriptor = '$idUser'"; // mis subscripciones
+        $sql = "SELECT p.id,p.nombre,p.apellido, s.activa FROM personas p JOIN subscripciones s ON p.id = s.siguiendoA WHERE s.subscriptor = '$idUser'"; // mis subscripciones
         
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
 
             while ($row = $result->fetch_assoc()) {
-                $arrayResult[]= Array ("id" => $row['id'],"nombre"=>$row['nombre'],"apellido"=>$row['apellido'],"estado"=>$estado,"existe"=>1);
+                $arrayResult[]= Array ("id" => $row['id'],"nombre"=>$row['nombre'],"apellido"=>$row['apellido'],"activa"=>$row['activa'],"existe"=>1);
            };
         };
         
         include 'connClose_BD.php'; // cierra conexion a BD
         return $arrayResult;
+        
     };
 
 function obtener_target($idUser) {// para selector subscripciones target 
@@ -300,11 +300,11 @@ function obtener_target($idUser) {// para selector subscripciones target
         if ($result->num_rows > 0) {
             
             while ($row = $result->fetch_assoc()) {
-                $arrayResult[]= Array('id'=>$row["id"],'nombre'=>$row["nombre"],'apellido'=>$row["apellido"],'estado'=>"","existe"=>0);
+                $arrayResult[]= Array('id'=>$row["id"],'nombre'=>$row["nombre"],'apellido'=>$row["apellido"],"activa"=>0,"existe"=>0);
             };
+            
         };
-    
+        
         include 'connClose_BD.php'; // cierra conexion a BD
         return $arrayResult;
         };
-?>

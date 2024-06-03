@@ -3,7 +3,7 @@
     <title> AddSubscripcion.php </title>
     <meta charset="utf-8">
     <meta description="Basecon favicon">
-    <link rel="shortcut icon" href="laXarxaFavicon.png">
+    <link rel="shortcut icon" href="./imgCodigo/laXarxaFavicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
  
@@ -18,14 +18,19 @@ $title ="Subscripcion";
 include ("header.php");
 include_once ("funciones.php");
 session_start();
-$idUser = $_SESSION["idUsuario"]; 
-$subscripciones  = obtener_subscripciones($idUser);
-$subscripciones += obtener_target($idUser);
+$idUser = $_SESSION["idUsuario"];
+$usuario =$_SESSION["usuario"]; 
+$array1 = obtener_subscripciones($idUser);
+$array2 = obtener_target($idUser);
+$subscripciones = array_merge($array1,$array2);
+
+
 $subscripcionErr="";
 
 
 ?>
 <div id="entradaDatos" class = "container pt-3 pb-3 mt-3 bg-light shadow-lg">
+<p name=" usuario"><strong>HOLA <?=$usuario;?>. Aqui puedes actualizar tus subscripciones! </strong></p>
 <form method="" action = "">
         <div id= "tSubscripciones" class="form-check">      
             
@@ -35,7 +40,9 @@ $subscripcionErr="";
     echo '<span id= "span'.$row["id"].'" hidden >'.$row["existe"].'</span>';
     echo' <input class="form-check-input" type ="checkbox" id = "check' 
             .$row["id"]. '" name="checkBox" value=' 
-            .$row["id"].' '.$row["estado"].'>';
+            .$row["id"].' ';
+    if ($row["activa"] == 1){ echo ' checked';};
+    echo '>';
     echo '<label class ="form-check-label">'. $row["nombre"] .' '.$row["apellido"].'</label></div>';
 };
 
@@ -43,7 +50,7 @@ $subscripcionErr="";
         </div>    
 		<span class="error" style="color:red;"><?=$subscripcionErr;?></span>
         <div class="form-floating mb-1 mt-3"> 
-            <input class="btn btn-primary"type="button" name="submit" value="Aceptar"  onclick="javascript:saluda(<?=$idUser;?>);">
+            <input class="btn btn-primary"type="button" name="submit" value="Aceptar"  onclick="javascript:grabaSubscripciones(<?=$idUser;?>);">
 <!-- el input debe ser de tipo button para que no refresque la pagina -->
         </div>
 </form>

@@ -353,4 +353,16 @@ function  busca_mensajes_porTexto($texto){
         return $arrayResult;
     };
 
+    function obtener_encuestas() { // selecciona todas las encuestas 
 
+            include 'conn_BD.php'; // conexion a BD
+
+            $sql =" SELECT e.id as idEncuesta , e.titulo as titulo, e.idUsuario as idUsuario, p.username as username   
+                    FROM encuestas e, personas p 
+                    WHERE (p.id = idUsuario) AND (e.fechaFin >= NOW())  ORDER BY e.fechaFin ASC;";
+        //    print ($sql);
+            $result = $conn->query($sql);
+            include 'connClose_BD.php'; // cierra conexion a BD
+            return $result;
+        
+    };

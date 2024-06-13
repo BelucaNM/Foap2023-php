@@ -50,6 +50,8 @@
         <a type="button" class="btn btn-dark" href="logOut.php">Log Out</a>
         <a type="button" class="btn btn-light" href='addMensaje.php' >Añadir Mensajes</a>
         <a type="button" class="btn btn-light" href='addSubscripcion.php' >Añadir/borrar Subscripcion</a>  
+        <a type="button" class="btn btn-light" href='registraEncuestaBS.html'>Añadir encuesta</a>
+        <a type="button" class="btn btn-light" href='votarBDEncuesta.php'>Votar encuesta</a>  
     </div>
     <div class = "btn-group btn-group-sm">
         <a type="button" class="btn btn-light" href='buscarMensajesTexto.php' >Buscar: Mensajes</a> 

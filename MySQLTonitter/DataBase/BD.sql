@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-05-2024 a las 13:51:22
+-- Tiempo de generación: 14-06-2024 a las 10:36:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,8 +40,35 @@ CREATE TABLE `empresas` (
 --
 
 INSERT INTO `empresas` (`id`, `nombre`, `direccion`, `telefono`, `CIF`) VALUES
-(1, 'UPC', 'Barcelona', '600857232', 'B60589892'),
-(2, 'SARTI', 'Vilanova i la Geltru', '600857253', 'G60589892');
+(1, 'SARTI', 'Vilanova i la Geltru', '600857253', 'G60589892'),
+(2, 'UPC', 'Barcelona', '938948915', 'B60589892');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `encuestas`
+--
+
+CREATE TABLE `encuestas` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `fechaInicio` datetime NOT NULL,
+  `fechaFin` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `encuestas`
+--
+
+INSERT INTO `encuestas` (`id`, `titulo`, `idUsuario`, `fechaInicio`, `fechaFin`) VALUES
+(3, 'Cual es tu personaje favorito de los Simpson?', 4, '2024-06-10 22:41:23', '2024-06-12 22:41:23'),
+(7, 'Cual es tu personaje favorito de los Simpson?', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 'Cual es tu personaje favorito de los Simpson?', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 'Cual es tu personaje favorito de los Simpson?', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 'Cual es tu personaje favorito de los Simpson?', 4, '2024-06-10 22:41:23', '2024-06-20 22:41:23'),
+(11, 'Que opinas de los resultados de las elecciones?', 1, '1970-01-01 00:00:00', '1970-01-03 00:00:00'),
+(12, 'te gustan los Simpson?', 1, '2024-06-12 10:30:39', '1970-01-03 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -14245,10 +14272,73 @@ INSERT INTO `localidades` (`id`, `codigoPostal`, `municipio`) VALUES
 
 CREATE TABLE `mensajes` (
   `id` int(11) NOT NULL,
-  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
   `idUser` int(11) NOT NULL,
-  `contenido` varchar(300) NOT NULL
+  `titulo` varchar(30) NOT NULL,
+  `contenido` varchar(500) NOT NULL,
+  `imagenURL` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `mensajes`
+--
+
+INSERT INTO `mensajes` (`id`, `fecha`, `idUser`, `titulo`, `contenido`, `imagenURL`) VALUES
+(1, '2024-05-29 00:00:00', 7, 'Alquilo apartamento en Olivell', 'Vecinos de Olivella Informació', '.\\imgMensajes\\GatoenBelen.jpg'),
+(2, '2024-05-29 00:00:00', 7, 'Alquilo apartamento en Olivell', 'Vecinos de Olivella Informació', '.\\imgMensajes\\GatoenBelen.jpg'),
+(4, '2024-05-29 00:00:00', 7, 'Alquilo apartamento en Olivell', 'Vecinos de Olivella Informació', '.\\imgMensajes\\GatoenBelen.jpg'),
+(5, '2024-05-29 00:00:00', 6, 'Taylor Switf en Barcelona!!', 'Vecinos de Olivella Informació', '.\\imgMensajes\\foto3.jpg'),
+(6, '2024-05-29 00:00:00', 9, 'Cine de Sant Pere de Ribes', 'No os perdais la Peli que hace', '.\\imgMensajes\\foto4.jpg'),
+(7, '2024-05-30 17:57:59', 1, 'el tirulo que mio', 'pues eso , que estamos aqui codificando', './imgMensajes/Pollitos.jpg'),
+(8, '2024-05-30 18:34:35', 1, 'el riesgo de l estudio', 'este es mi mensaje para ti', './imgMensajes/Pollitos.jpg'),
+(10, '2024-05-31 09:37:35', 4, 'hola soy el primero', 'habeis visto que ya es temporada de cerezas?', './imgMensajes/cireres-600.gif');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `opciones`
+--
+
+CREATE TABLE `opciones` (
+  `id` int(11) NOT NULL,
+  `idEncuesta` int(11) NOT NULL,
+  `idOpcion` int(11) NOT NULL,
+  `texto` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `opciones`
+--
+
+INSERT INTO `opciones` (`id`, `idEncuesta`, `idOpcion`, `texto`) VALUES
+(1, 3, 0, 'Homer'),
+(2, 3, 1, 'Lisa'),
+(3, 3, 2, 'Marge'),
+(4, 3, 3, 'NO se mas'),
+(5, 7, 0, 'Homer'),
+(6, 7, 1, 'Lisa'),
+(7, 7, 2, 'Marge'),
+(8, 7, 3, 'NO se mas'),
+(9, 8, 0, 'Homer'),
+(10, 8, 1, 'Lisa'),
+(11, 8, 2, 'Marge'),
+(12, 8, 3, 'NO se mas'),
+(13, 9, 0, 'Homer'),
+(14, 9, 1, 'Lisa'),
+(15, 9, 2, 'Marge'),
+(16, 9, 3, 'NO se mas'),
+(17, 10, 0, 'Homer'),
+(18, 10, 1, 'Lisa'),
+(19, 10, 2, 'Marge'),
+(20, 10, 3, 'Bart'),
+(21, 11, 0, 'Un desastre'),
+(22, 11, 1, 'Que horror!!'),
+(23, 11, 2, 'A mi me parece bien'),
+(24, 11, 3, 'Quiero volver a votar!'),
+(25, 12, 0, 'si me gustan'),
+(26, 12, 1, 'no me gustan'),
+(27, 12, 2, 'no lo he visto nunca'),
+(28, 12, 3, '');
 
 -- --------------------------------------------------------
 
@@ -14263,8 +14353,8 @@ CREATE TABLE `personas` (
   `apellido` varchar(100) DEFAULT NULL,
   `fechaNacimiento` date DEFAULT NULL,
   `telefono` varchar(100) DEFAULT NULL,
-  `idLocalidad` int(11) NOT NULL,
-  `idEmpresa` int(11) NOT NULL,
+  `idLocalidad` int(11) DEFAULT NULL,
+  `idEmpresa` int(11) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `username` varchar(8) DEFAULT NULL,
   `password` varchar(12) DEFAULT NULL
@@ -14277,11 +14367,72 @@ CREATE TABLE `personas` (
 INSERT INTO `personas` (`id`, `dni`, `nombre`, `apellido`, `fechaNacimiento`, `telefono`, `idLocalidad`, `idEmpresa`, `email`, `username`, `password`) VALUES
 (1, '33247568Z', 'Toni', 'Oller', NULL, '678234567', 11, 1, 'toni.oller@upc.edu', 'toniFoap', 'toniFoap'),
 (4, '98954545H', 'Juan', 'Lopez', NULL, '123456789', 11, 1, 'juan.lopez@upc.edu', 'juanFoap', 'juanFoap'),
-(5, '32456778Z', 'Ikram', 'Baghiel', NULL, '321654987', 11, 2, 'ikram.baghiel@upc.edu', 'ikranFoa', 'ikramFoa'),
-(6, '3246333Z', 'Isabel', 'Navarrina', NULL, '60085763', 12, 0, 'isabel.navarrina@gmail.com', 'beluFoap', 'beluFoap'),
-(7, '33246334H', 'Isabel', 'Navarrina Martínez', '1961-07-08', '600857253', 13, 1, 'beluca.navarrina@gmail.com', 'inavarri', ''),
-(9, '38045230X', 'Jesus', 'Consuegra', '1985-05-08', '600857253', 14, 1, 'jesus@gmail.com', 'jesusC', ''),
-(12, '33246333B', 'Luisa', 'Martínez', '1970-12-29', '600857253', 15, 1, 'luisa@gmail.com', 'luisaNM', 'luisaA_');
+(5, '32456778Z', 'Ikram', 'Baghiel', NULL, '321654987', 16, 2, 'ikram.baghiel@upc.edu', 'ikranFoa', 'ikramFoa'),
+(6, '3246333Z', 'Elena', 'Navarrina', NULL, '60085763', NULL, NULL, 'isabel.navarrina@gmail.com', 'beluFoap', 'beluFoap'),
+(7, '33246334H', 'Isabel', 'Martínez', '1961-07-08', '600857253', 18, 1, 'beluca.navarrina@gmail.com', 'inavarri', 'inavarri'),
+(9, '38045230X', 'Jesus', 'Consuegra', '1985-05-08', '600857253', 25, 1, 'jesus@gmail.com', 'jesusC', ''),
+(12, '33246333B', 'Luisa', 'Martínez', '1970-12-29', '600857253', 25, 1, 'luisa@gmail.com', 'luisaNM', 'luisaA_');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `respuestas`
+--
+
+CREATE TABLE `respuestas` (
+  `id` int(11) NOT NULL,
+  `idVotante` int(11) NOT NULL,
+  `idEncuesta` int(11) NOT NULL,
+  `idOpcion` int(11) NOT NULL,
+  `fechaVoto` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `respuestas`
+--
+
+INSERT INTO `respuestas` (`id`, `idVotante`, `idEncuesta`, `idOpcion`, `fechaVoto`) VALUES
+(1, 4, 3, 1, '2024-06-12 22:07:31'),
+(2, 5, 3, 1, '2024-06-12 22:07:31'),
+(3, 6, 3, 2, '2024-06-12 22:07:31'),
+(4, 7, 3, 2, '2024-06-12 22:07:31'),
+(5, 9, 3, 3, '2024-06-12 22:07:31'),
+(6, 12, 3, 0, '2024-06-12 22:07:31'),
+(7, 1, 3, 1, '2024-06-12 22:07:31'),
+(8, 1, 10, 0, '0000-00-00 00:00:00'),
+(23, 5, 11, 0, '2024-06-13 11:46:45');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `subscripciones`
+--
+
+CREATE TABLE `subscripciones` (
+  `id` int(11) NOT NULL,
+  `subscriptor` int(11) NOT NULL,
+  `siguiendoA` int(11) NOT NULL,
+  `activa` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `subscripciones`
+--
+
+INSERT INTO `subscripciones` (`id`, `subscriptor`, `siguiendoA`, `activa`) VALUES
+(1, 4, 5, 1),
+(2, 4, 7, 0),
+(5, 5, 4, 1),
+(6, 5, 12, 1),
+(7, 7, 9, 1),
+(8, 7, 6, 1),
+(9, 4, 1, 1),
+(10, 1, 4, 1),
+(11, 1, 5, 1),
+(12, 1, 6, 1),
+(13, 1, 7, 1),
+(14, 1, 9, 1),
+(15, 1, 12, 1);
 
 --
 -- Índices para tablas volcadas
@@ -14294,6 +14445,13 @@ ALTER TABLE `empresas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `encuestas`
+--
+ALTER TABLE `encuestas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `iEncuestaUsuario` (`idUsuario`) USING BTREE;
+
+--
 -- Indices de la tabla `localidades`
 --
 ALTER TABLE `localidades`
@@ -14303,7 +14461,16 @@ ALTER TABLE `localidades`
 -- Indices de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idUser` (`idUser`);
+
+--
+-- Indices de la tabla `opciones`
+--
+ALTER TABLE `opciones`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `iEncuestaOpcion` (`idOpcion`,`idEncuesta`) USING BTREE,
+  ADD KEY `iEncuesta` (`idEncuesta`) USING BTREE;
 
 --
 -- Indices de la tabla `personas`
@@ -14311,8 +14478,25 @@ ALTER TABLE `mensajes`
 ALTER TABLE `personas`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `iDni` (`dni`) USING BTREE,
-  ADD KEY `iEmpresa` (`idEmpresa`) USING BTREE,
-  ADD KEY `iLocalidad` (`idLocalidad`) USING BTREE;
+  ADD KEY `iLocalidad` (`idLocalidad`) USING BTREE,
+  ADD KEY `iEmpresa` (`idEmpresa`);
+
+--
+-- Indices de la tabla `respuestas`
+--
+ALTER TABLE `respuestas`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `iVotEnc` (`idVotante`,`idEncuesta`),
+  ADD KEY `respuestas_ibfk_1` (`idOpcion`,`idEncuesta`);
+
+--
+-- Indices de la tabla `subscripciones`
+--
+ALTER TABLE `subscripciones`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `subscriptor_2` (`subscriptor`,`siguiendoA`),
+  ADD KEY `subscriptor` (`subscriptor`),
+  ADD KEY `siguiendoA` (`siguiendoA`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -14325,6 +14509,12 @@ ALTER TABLE `empresas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `encuestas`
+--
+ALTER TABLE `encuestas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT de la tabla `localidades`
 --
 ALTER TABLE `localidades`
@@ -14334,7 +14524,13 @@ ALTER TABLE `localidades`
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `opciones`
+--
+ALTER TABLE `opciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `personas`
@@ -14343,20 +14539,59 @@ ALTER TABLE `personas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT de la tabla `respuestas`
+--
+ALTER TABLE `respuestas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT de la tabla `subscripciones`
+--
+ALTER TABLE `subscripciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `empresas`
+-- Filtros para la tabla `encuestas`
 --
-ALTER TABLE `empresas`
-  ADD CONSTRAINT `empresas_ibfk_1` FOREIGN KEY (`id`) REFERENCES `personas` (`idEmpresa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `encuestas`
+  ADD CONSTRAINT `existeUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `personas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  ADD CONSTRAINT `mensajes_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `personas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `opciones`
+--
+ALTER TABLE `opciones`
+  ADD CONSTRAINT `iEncuesta` FOREIGN KEY (`idEncuesta`) REFERENCES `encuestas` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `personas`
 --
 ALTER TABLE `personas`
-  ADD CONSTRAINT `personas_ibfk_1` FOREIGN KEY (`idLocalidad`) REFERENCES `localidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `personas_ibfk_1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresas` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
+  ADD CONSTRAINT `rMunicipio` FOREIGN KEY (`idLocalidad`) REFERENCES `localidades` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `respuestas`
+--
+ALTER TABLE `respuestas`
+  ADD CONSTRAINT `iUsuarioResp` FOREIGN KEY (`idVotante`) REFERENCES `personas` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `respuestas_ibfk_1` FOREIGN KEY (`idOpcion`,`idEncuesta`) REFERENCES `opciones` (`idOpcion`, `idEncuesta`);
+
+--
+-- Filtros para la tabla `subscripciones`
+--
+ALTER TABLE `subscripciones`
+  ADD CONSTRAINT `subscripciones_ibfk_1` FOREIGN KEY (`siguiendoA`) REFERENCES `personas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `subscripciones_ibfk_2` FOREIGN KEY (`subscriptor`) REFERENCES `personas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

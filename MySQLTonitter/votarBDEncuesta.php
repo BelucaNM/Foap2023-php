@@ -48,8 +48,9 @@
         <table class="table table-striped table-bordered table-sm">
             <thead class="thead-dark">
                 
+                <th scope="col">idEncuesta</th>
                 <th scope="col">Titulo</th>
-                <th scope="col">Username</th>
+                <th scope="col">ElPregunton</th>
                 <th scope="col">votar</th>
                 
             </thead>
@@ -63,9 +64,10 @@
     ?>
     
         <tr>
+            <td><?=$row["idEncuesta"];?> </td> <!-- Titulo de la encuesta -->
             <td><?=$row["titulo"];?> </td> <!-- Titulo de la encuesta -->
             <td><?=$row["username"];?> </td> <!-- Descripcion de la encuesta -->
-            <td><a class="btnStack" href="timelineUsuario.html">Votar</a></td>Verla encuesta 
+            <td><a class="btnStack" href="timelineUsuario.html?enq=<?=$row['idEncuesta'];?>&usu=<?=$idUsuario;?>">Votar</a></td><!-- Ver la encuesta -->
 
         </tr>
 

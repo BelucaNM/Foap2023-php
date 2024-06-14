@@ -6,14 +6,12 @@ function validate_input($input)
     $input = stripslashes($input);
     return $input;
 
-}
-;
+};
 
 function is_valid_email($str)
 {
     return filter_var($str, FILTER_VALIDATE_EMAIL);
-}
-;
+};
 
 function is_solo_letras($str)
 {
@@ -247,7 +245,7 @@ function creaSelSubscripcion($idUser) {// para selector de posibles subscripcion
 
     include 'connClose_BD.php'; // cierra conexion a BD
     return "";
-    };
+};
 
 function obtener_mensajes($arrayUsers) {
 
@@ -285,7 +283,7 @@ function obtener_subscripciones($idUser) {// subscripciones
         include 'connClose_BD.php'; // cierra conexion a BD
         return $arrayResult;
         
-    };
+};
 
 function obtener_target($idUser) {// para selector subscripciones target 
         include 'conn_BD.php'; // conexion a BD
@@ -307,7 +305,7 @@ function obtener_target($idUser) {// para selector subscripciones target
         
         include 'connClose_BD.php'; // cierra conexion a BD
         return $arrayResult;
-    };
+};
 
 function  busca_mensajes_porTexto($texto){
     if ($texto != "") {
@@ -330,8 +328,8 @@ function  busca_mensajes_porTexto($texto){
         }else{ 
             return null;
         };
-    };
-    function busca_usuarios_porTexto($texto) {
+};
+function busca_usuarios_porTexto($texto) {
         include 'conn_BD.php'; // conexion a BD
         $arrayResult = array(); 
 
@@ -351,13 +349,13 @@ function  busca_mensajes_porTexto($texto){
         
         include 'connClose_BD.php'; // cierra conexion a BD
         return $arrayResult;
-    };
+};
 
-    function obtener_encuestas() { // selecciona todas las encuestas 
+function obtener_encuestas() { // selecciona todas las encuestas 
 
             include 'conn_BD.php'; // conexion a BD
 
-            $sql =" SELECT e.id as idEncuesta , e.titulo as titulo, e.idUsuario as idUsuario, p.username as username   
+            $sql =" SELECT e.id as idEncuesta , e.titulo as titulo, e.idUsuario as elPregunton, p.username as username   
                     FROM encuestas e, personas p 
                     WHERE (p.id = idUsuario) AND (e.fechaFin >= NOW())  ORDER BY e.fechaFin ASC;";
         //    print ($sql);
@@ -365,4 +363,4 @@ function  busca_mensajes_porTexto($texto){
             include 'connClose_BD.php'; // cierra conexion a BD
             return $result;
         
-    };
+};

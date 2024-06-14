@@ -34,24 +34,24 @@ if ($conn->connect_error) {// Check connection
     try{
         if ($stmt->execute())
         {
+            $messageObj['code']=0;
             $messageObj['message'] =  "New records created successfully"; 
-          
         }
-       
+  
     }catch (mysqli_sql_exception $e) {
+        if ($e->getCode() == 1062){
+            $messageObj['code']=1062;    
+            $messageObj['message'] =  "Registro duplicado"; 
+        }else{
+            $messageObj['code']=$e->getCode();    
+            $messageObj['message'] = $e->getMessage(); 
 
-        $messageObj['message'] =  "Error"; 
-        if ($e->getCode() == 1062)
-        {
-
-        $messageObj['message'] =  "Registro duplicado"; 
-        
         }
-
+    
     } finally {
         $conn->close(); 
-        echo json_encode($messageObj);
-    };
-    
         
+    };
+    echo json_encode($messageObj);
+     
 };

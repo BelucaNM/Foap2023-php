@@ -442,8 +442,9 @@
             let fechaInicio= new Date();
 
 
-            // ahora se le agregan 2 días 
-            let fechaFin = new Date(2*24 * 3600 * 1000);
+            // ahora se le agregan 3 días 
+            let fechaFin = new Date();
+            fechaFin.setDate(fechaInicio.getDate() + 3);
 
 
         window.encuesta = {
